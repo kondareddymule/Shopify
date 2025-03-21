@@ -1,0 +1,107 @@
+body {
+    background-color: aliceblue;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+span {
+    font-size: 24px;
+    color: #1424d2;
+    font-weight: bold;
+}
+
+#quote {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(232, 33, 33);
+    font-family: monospace;
+}
+
+#input {
+    width: 90vw;
+    height: auto;
+    border: 2px solid #1cd164;
+    margin: 20px;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1cd164;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+button {
+    height: 40px;
+    width: 100px;
+    background-color: #1cd164;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    justify-content: center;
+    align-self: center;
+}
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+.modal {
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+
+}
+.content {
+    border-radius: 10px;
+    height: 30%;
+    width: 40%;
+    background: white;
+}
+
+.modal span {
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
+}
+.modal span:hover {
+    color: red;
+}
+
+.modal p {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    margin: 1px;
+}
+#cross {
+    position: relative;
+    float: right;
+    top: -25px;
+    right: 10px;
+}
