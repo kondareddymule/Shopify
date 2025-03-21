@@ -1,0 +1,16 @@
+#container {
+    display: flex;
+}
+
+.container {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 650px;
+}
+
+@keyframes mymove {
+    from {top: 600px}
+    to {top: 200px}
+}
