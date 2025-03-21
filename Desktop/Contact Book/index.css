@@ -1,0 +1,87 @@
+.formData {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 100px
+}
+
+form {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: rgb(230, 220, 220);
+}
+
+input {
+    height: 30px;
+    border-radius: 10px;
+    margin: 10px;
+    padding-left: 10px;
+    border: 1px solid red;
+    color: black;
+}
+
+input[type="submit"] {
+    border: none;
+    background-color: red;
+    color: white;
+    align-self: center;
+    text-align: center;
+    padding-left: 0px;
+    width: 50%;
+    cursor: pointer;
+}
+
+input::placeholder {
+    color: black
+}
+.profile {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin: 20px;
+    gap: 20px;
+}
+
+.image {
+    height: 100px;
+    width: 100px;
+}
+
+.subdiv p {
+    font-size: 18px;
+    font-family: cursive;
+}
+
+.del {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.del button {
+    border: none;
+    height: 30px;
+    width: 60px;
+    border-radius: 6px;
+    background: steelblue;
+    color: white;
+    cursor: pointer;
+}
+
+.add {
+    font-weight: bold;
+    align-items: center;
+}
+
+.add button {
+    background-color: green;
+    border: none;
+    height: 40px;
+    border-radius: 6px;
+    color: white;
+}
