@@ -1,0 +1,7 @@
+<div class="container">
+    <div *ngFor="let item of products" appStyle>
+      <img [src]="item.imageURL" [alt]="item.name" class="image-card">
+      <p>{{item.name}}</p>
+    </div>
+</div>
+  
