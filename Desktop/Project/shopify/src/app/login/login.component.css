@@ -1,0 +1,42 @@
+.login-container {
+    position: absolute;
+    margin-left: 50%;
+    background-color: #ffffff;
+    height: 100vh;
+    top: 0px;
+    width: 50%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70vh;
+    margin-left: 25%;
+    margin-bottom: 0px;
+}
+
+.heading {
+    text-align: center;
+    margin-top: 50px;
+}
+
+input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    height: 30px;
+    cursor: pointer;
+    background-color: #f3f3f3;
+}
+
+::ng-deep button {
+    width: 80%;
+    height: 30px;
+}
+
+.signup {
+    text-align: center;
+    width: 80%;
+    margin-top: 10px;
+}

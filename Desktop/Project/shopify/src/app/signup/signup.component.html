@@ -1,0 +1,99 @@
+<div class="signup-container"> 
+    <h1 class="heading"><span class="material-symbols-outlined">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
+    <div class="profile-pic">
+        <p-image src="../../assets/Frame.png" alt="Image" width="100px" height="100px" class="profile"/>
+        <i class="pi pi-pencil" style="font-size: 1rem" style="position: absolute; right: 20px; top:10px" ></i>
+    </div>
+    <form class="form-container">
+        <div *ngIf="show">
+            <div>
+                <label>User Name</label><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+            </div>
+            <div class="row">
+                <div>
+                    <label>First Name</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+                <div>
+                    <label>Last Name</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <label>Gender</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+                <div>
+                    <label>DOB</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+           </div>
+            <div>
+                <label>Email ID</label><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+            </div>
+            <div>
+                <label>Mobile Number</label><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+            </div>
+            <div class="pagination">
+                <span><</span><div>o</div> <div>o</div><span>></span>
+            </div>
+        </div>
+        <div *ngIf="!show">
+            <div>
+                <label>Address</label><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+            </div>
+            <div class="row">
+                <div>
+                    <label>Country</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+
+                <div>
+                    <label>State</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <label>Zip Code</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+                <div>
+                    <label>Time Zone</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <label>Locale</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+                <div>
+                    <label>IsAdmin</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+            </div>
+                <div>
+                    <label>Password</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+                <div>
+                    <label>Conform Password</label><br>
+                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                </div>
+
+               <p-button label="Register" />
+
+               <div class="pagination">
+                <span><</span><div>o</div> <div>o</div><span>></span>
+            </div>
+        </div>
+    </form>
+
+
+</div>
