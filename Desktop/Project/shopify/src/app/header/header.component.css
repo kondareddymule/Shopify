@@ -1,0 +1,23 @@
+.container {
+    position: absolute;
+    top: 0;
+    background-color: #ffffff;
+    width: 100vw;
+    height: 7vh;
+}
+
+
+.frame {
+    position: absolute;
+}
+.shopify {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+}
+
+.horizontalline {
+    height: 7vh;
+    width: 1px;
+    border: 1px solid grey;
+}

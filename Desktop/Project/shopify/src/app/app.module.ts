@@ -8,6 +8,13 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { HttpClientModule } from '@angular/common/http';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +26,12 @@ import { LoginComponent } from './login/login.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { GalleriaModule } from 'primeng/galleria';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductComponent } from './product/product.component';
+import { CartComponent } from './cart/cart.component';
+import { OrderComponent } from './order/order.component';
 
 
 const routes : Routes = [
@@ -28,6 +41,15 @@ const routes : Routes = [
   }, {
     path: 'signup',
     component: SignupComponent
+  }, {
+    path: 'home',
+    component: HomeComponent
+  }, {
+    path: 'dashboard',
+    component: DashboardComponent
+  }, {
+    path: 'header',
+    component: HeaderComponent
   }
 ]
 
@@ -38,7 +60,13 @@ const routes : Routes = [
     UserComponent,
     AdminComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    HeaderComponent,
+    DashboardComponent,
+    ProductComponent,
+    CartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +81,12 @@ const routes : Routes = [
     GalleriaModule,
     CarouselModule,
     BrowserAnimationsModule,
+    InputTextareaModule,
+    CheckboxModule,
+    DropdownModule,
+    CalendarModule,
+    HttpClientModule,
+    InputSwitchModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

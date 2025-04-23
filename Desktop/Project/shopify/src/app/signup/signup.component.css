@@ -6,14 +6,30 @@
   'opsz' 24
 }
 
+
+.container {
+    margin-left: 50vw;
+    background-color: #ffffff;
+    top: 0px;
+    width: 50vw;
+}
+
 .profile-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
     position: relative;
-    left: 50%;
-    margin-right: 20%;
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-color: #c52828
+    background-color: #c52828;
+}
+
+.pic-container {
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }
 
 .edit {
@@ -23,7 +39,6 @@
 
 .signup-container {
     position: absolute;
-    margin-left: 50%;
     background-color: #ffffff;
     height: 100vh;
     top: 0px;
@@ -40,16 +55,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 25%;
+    align-items: center;
+    width: 50vw;
     margin-bottom: 0px;
+    height: 80vh;
 }
 
-input {
+input, textarea{
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 80%;
+    width: 100%;
     height: 30px;
     background-color: #f3f3f3;
+}
+
+textarea {
+    height: 60px;
 }
 
 .pagination {
@@ -57,14 +78,51 @@ input {
     align-items: center;
     justify-content: center;
     gap: 2px;
-    margin-right: 20%;
 }
 
 .row {
     display: flex;
+    column-gap: 20px;
+}
+.row>div{
+    width: 100%;
+}
+.adminCheckBox{
+    margin-top: 33px;
 }
 
 ::ng-deep button {
-    width: 80%;
+    width: 100%;
     height: 30px;
+}
+
+span {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+::ng-deep .p-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 200px;
+    background-color: #f3f3f3;
+    text-align: center;
+    width: 100% !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.gender-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+::ng-deep .p-calendar {
+    height: 30px;
+    background-color: #f3f3f3;
 }

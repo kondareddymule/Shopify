@@ -1,99 +1,152 @@
+<div class="container">
 <div class="signup-container"> 
     <h1 class="heading"><span class="material-symbols-outlined">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
-    <div class="profile-pic">
-        <p-image src="../../assets/Frame.png" alt="Image" width="100px" height="100px" class="profile"/>
-        <i class="pi pi-pencil" style="font-size: 1rem" style="position: absolute; right: 20px; top:10px" ></i>
-    </div>
-    <form class="form-container">
+    <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
         <div *ngIf="show">
+            <div class="pic-container">
+                <div class="profile-pic">
+                    <p-image src="../../assets/Frame.png" alt="Image" width="100px" height="100px" class="profile"/>
+                    <i class="pi pi-pencil" style="font-size: 1rem" style="position: absolute; right: 20px; top:10px" ></i>
+                </div>
+           </div>
             <div>
                 <label>User Name</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required/><br>
             </div>
             <div class="row">
                 <div>
                     <label>First Name</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required/><br>
                 </div>
                 <div>
                     <label>Last Name</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <input type="text" pInputText [(ngModel)]="lastname" name="lastname" maxlength="20"/><br>
                 </div>
             </div>
             <div class="row">
                 <div>
-                    <label>Gender</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <div>
+                        <label>Gender</label>
+                    </div>
+                    <div class="gender-container">
+                        <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" [(ngModel)]="gender" value="others" /> 
+                        <label>others</label>
+                    </div>
                 </div>
                 <div>
                     <label>DOB</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/m/yy"/>
                 </div>
            </div>
             <div>
                 <label>Email ID</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required/><br>
             </div>
             <div>
                 <label>Mobile Number</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                <input type="text" pInputText [(ngModel)]="phone" name="phone"/><br>
             </div>
             <div class="pagination">
-                <span><</span><div>o</div> <div>o</div><span>></span>
+                <span (click)="prevpage()"><</span><span>o</span> <span>o</span><span (click)="nextpage()">></span>
             </div>
         </div>
         <div *ngIf="!show">
             <div>
                 <label>Address</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                <textarea 
+                rows="0"
+                cols="60"
+                pInputTextarea 
+                [(ngModel)]="address"
+                maxlength="100" name="address">
+            </textarea>
             </div>
             <div class="row">
                 <div>
-                    <label>Country</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                  <label>Country</label><br>
+                  <p-dropdown 
+                    [options]="countries"
+                    [(ngModel)]="country"
+                    optionLabel="name"
+                    placeholder="Select a Country"
+                    (onChange)="onCountryChange($event.value)"
+                    name="country">
+                  </p-dropdown>
                 </div>
-
+              
                 <div>
-                    <label>State</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                  <label>State</label><br>
+                  <p-dropdown 
+                    [options]="filteredStates"
+                    [(ngModel)]="state"
+                    optionLabel="name"
+                    placeholder="Select a State"
+                    name="state">
+                  </p-dropdown>
                 </div>
-            </div>
-            <div class="row">
+              </div>
+              
+              <div class="row">
                 <div>
-                    <label>Zip Code</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                  <label>Zip Code</label><br>
+                  <input 
+                    type="text" 
+                    pInputText 
+                    maxlength="20" 
+                    [(ngModel)]="zipCode" 
+                    name="zipCode"/>
                 </div>
+              
                 <div>
-                    <label>Time Zone</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                  <label>Time Zone</label><br>
+                  <p-dropdown 
+                    [options]="timeZones"
+                    [(ngModel)]="timeZone"
+                    placeholder="Select a Time Zone"
+                    name="timeZone">
+                  </p-dropdown>
                 </div>
-            </div>
-            <div class="row">
+              </div>
+              
+              <div class="row">
                 <div>
-                    <label>Locale</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                  <label>Locale</label><br>
+                  <p-dropdown 
+                    [options]="locales"
+                    [(ngModel)]="locale"
+                    placeholder="Select a Locale"
+                    name="locale">
+                  </p-dropdown>
                 </div>
-                <div>
+                <div class="adminCheckBox">
+                    <p-checkbox 
+                    [(ngModel)]="admin" 
+                    [binary]="true" 
+                    inputId="binary" 
+                    name="admin"/>
                     <label>IsAdmin</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+    
                 </div>
-            </div>
+              </div>
                 <div>
                     <label>Password</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <input type="text" pInputText [(ngModel)]="password" name="password"/><br>
                 </div>
                 <div>
                     <label>Conform Password</label><br>
-                    <input type="text" pInputText [(ngModel)]="username" name="username"/><br>
+                    <input type="text" pInputText [(ngModel)]="conformpass" name="conformpass"/><br>
                 </div>
 
-               <p-button label="Register" />
+               <p-button type="submit" label="Sign Up" />
 
                <div class="pagination">
-                <span><</span><div>o</div> <div>o</div><span>></span>
+                <span (click)="prevpage()"><</span><span>o</span> <span>o</span><span (click)="nextpage()">></span>
             </div>
         </div>
     </form>
-
-
+</div>
 </div>
