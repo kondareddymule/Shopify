@@ -1,1 +1,18 @@
-<p>order works!</p>
+<app-header></app-header>
+<app-dashboard></app-dashboard>
+
+<div class="container">
+    <p style="color: blue; font-weight: bold;">My Orders</p>
+        <table>
+            <th>OrderId</th>
+            <th>Product Count</th>
+            <th>Order Date Time</th>
+            <th>Delivery Status</th>
+            <tr *ngFor="let item of item">
+                <td>{{item.id}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.datetime}}</td>
+                <td>Delivered</td>
+            </tr>
+        </table>
+</div>

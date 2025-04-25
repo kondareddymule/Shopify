@@ -1,1 +1,31 @@
-<p>product works!</p>
+<app-header></app-header>
+<app-dashboard></app-dashboard>
+<div class="container">
+    <div class="header">
+        <p style="color: blue; font-weight: bold;">Available Products</p>
+        <input type="search" style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 34px;"/>
+    </div>
+
+<div class="product-container">
+    <div *ngFor="let item of item; let i = index">
+    <div class="image-container">
+        <div
+        [style.background-image]="'url(' + item.image + ')'"
+        style="height: 200px; width: 280px; background-size: cover; opacity: 0.5; border: 2px solid #E3E3E3; margin:'10px'; border-radius: 4px;"
+      >
+      </div>
+      <div class="text-container">
+        <p style="font-weight: bold;">{{item.category}}</p>
+        <p>{{ item.title }}</p>
+        <div class="quantity-container">
+            <span class="icon">-</span>
+            <span class="icon">{{item.quantity}}</span>
+            <span class="icon">+</span>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+  
+  

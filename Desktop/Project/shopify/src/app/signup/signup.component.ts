@@ -19,7 +19,7 @@ export class SignupComponent {
    show: boolean = true;
    firstname: string = "";
    lastname: string = "";
-   gender: string = "Male";
+   gender: string = "";
    dob: string = "";
    email: string = "";
    phone: string = "";
@@ -101,6 +101,6 @@ export class SignupComponent {
     }
 
     this.datacollection.postData(userData)
-    this.route.navigate(['/home'])
+    this.route.navigate(['/login'])
   }
 }

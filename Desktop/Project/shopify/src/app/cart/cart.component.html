@@ -1,1 +1,35 @@
-<p>cart works!</p>
+<app-header></app-header>
+<app-dashboard></app-dashboard>
+
+<div class="container">
+    <div>
+    <div class="header">
+        <p style="color: blue; font-weight: bold;">My Cart</p>
+        <input type="search" style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 34px;"/>
+    </div>
+
+    <div class="product-container">
+        <div *ngFor="let item of item; let i = index">
+            <div class="card">
+                <div class="image-container">
+                    <div style="margin: 10px;">
+                        <p-image [src]="item.image" alt="Image" width="120" height="80"/>
+                    </div>
+                    <div class="text-container">
+                        <p class="text-ellipsis">{{item.title}}</p>
+                        <p style="font-weight: 200;">Price: {{item.price}}</p>
+                        <div class="quantity-container">
+                            <span class="icon">-</span>
+                            <span class="icon">{{item.quantity}}</span>
+                            <span class="icon">+</span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- <div class="orderButton">
+        <p-button style="height: 30px;">Place Order</p-button>
+    </div> -->
+</div>
+

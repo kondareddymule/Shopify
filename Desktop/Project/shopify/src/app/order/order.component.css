@@ -1,0 +1,13 @@
+.container {
+    background-color: #ffffff;
+    position: absolute;
+    top: 9vh;
+    left: 15vw;
+    height: 90vh;
+    overflow: auto;
+    width: 84vw;
+    box-shadow: #ffffff;
+    border-radius: 5px;
+    margin-left: 5px;
+
+}

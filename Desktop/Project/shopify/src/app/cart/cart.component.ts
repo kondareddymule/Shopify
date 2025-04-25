@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class CartComponent {
 
+  http: HttpClient = inject(HttpClient)
+    item: any[] =[]
+  
+    ngOnInit() {
+      this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
+        let filteredItems = items.filter((item) => item.quantity > 0)
+        this.item = filteredItems
+      })
+    }
 }

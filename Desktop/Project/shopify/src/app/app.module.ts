@@ -14,6 +14,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { HttpClientModule } from '@angular/common/http';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
+import { ChartModule } from 'primeng/chart';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +53,18 @@ const routes : Routes = [
   }, {
     path: 'header',
     component: HeaderComponent
+  },
+  {
+    path: 'products',
+    component: ProductComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
+    path: 'order',
+    component: OrderComponent
   }
 ]
 
@@ -87,6 +102,9 @@ const routes : Routes = [
     CalendarModule,
     HttpClientModule,
     InputSwitchModule,
+    ToastModule,
+    RippleModule,
+    ChartModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

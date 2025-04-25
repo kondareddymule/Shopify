@@ -12,9 +12,9 @@ export class FormdatacollectionService {
 
   http: HttpClient = inject(HttpClient)
 
-  arr: string[] = []
-
   postData(getdata: any) {
     this.http.post(this.apiUrl, getdata).subscribe()
   }
+
+  
 }
