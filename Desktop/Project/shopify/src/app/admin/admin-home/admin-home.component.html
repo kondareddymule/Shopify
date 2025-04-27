@@ -3,14 +3,14 @@
 
 <div class="container">
     <div style="margin: 10px">
-    <p style="color: blue; font-weight: bold;">My Orders</p>
+    <p style="color: blue; font-weight: bold;">Welcome Admin!...</p>
         <table class="table-container">
-            <th>OrderId</th>
+            <th>Username</th>
             <th>Product Count</th>
-            <th>Order Date Time</th>
-            <th>Delivery Status</th>
+            <th>Ordered Date</th>
+            <th>Ordered Delivered</th>
             <tr *ngFor="let item of item">
-                <td>{{item.id}}</td>
+                <td>{{item.username}}</td>
                 <td>{{item.orderedItems.length}}</td>
                 <td>{{item.date}}</td>
                 <td [ngStyle]="{'color': 'green'}">{{item.status}}</td>

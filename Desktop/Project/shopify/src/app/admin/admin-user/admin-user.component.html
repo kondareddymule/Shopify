@@ -1,0 +1,24 @@
+<app-header></app-header>
+<app-dashboard></app-dashboard>
+
+
+<div class="container">
+    <div style="margin: 10px">
+        <p style="color: blue; font-weight: bold;">User Data</p>
+        <p-button label="Add"></p-button>
+    <table class="table-container">
+        <th>UserImage</th>
+        <th>Username</th>
+        <th>Age</th>
+        <th>Product Count</th>
+        <th>Country</th>
+        <tr *ngFor="let user of users">
+            <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
+            <td>{{user.username}}</td>
+            <td>{{calculate(user.dob)}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.country.name}}</td>
+        </tr>
+    </table>
+</div>
+</div>

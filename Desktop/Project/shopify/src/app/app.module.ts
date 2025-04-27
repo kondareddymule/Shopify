@@ -35,6 +35,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { AdminProductComponent } from './admin/admin-product/admin-product.component';
+import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 
 
 const routes : Routes = [
@@ -65,6 +68,13 @@ const routes : Routes = [
   {
     path: 'order',
     component: OrderComponent
+  },
+  {
+    path: 'admin/home',
+    component: AdminHomeComponent
+  }, {
+    path: 'admin/users',
+    component: AdminUserComponent
   }
 ]
 
@@ -81,7 +91,10 @@ const routes : Routes = [
     DashboardComponent,
     ProductComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    AdminHomeComponent,
+    AdminProductComponent,
+    AdminUserComponent
   ],
   imports: [
     BrowserModule,

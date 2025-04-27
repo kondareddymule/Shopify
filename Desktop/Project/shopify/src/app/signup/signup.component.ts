@@ -28,6 +28,7 @@ export class SignupComponent {
    password: string = "";
    admin: boolean = false;
    description: string = "";
+   imageUrl: string = "../../assets/Frame.png";
 
 
    prevpage() {
@@ -97,7 +98,8 @@ export class SignupComponent {
       locale: this.locale,
       admin: this.admin,
       password: this.password,
-      conformpass: this.conformpass
+      conformpass: this.conformpass,
+      imageUrl: this.imageUrl
     }
 
     this.datacollection.postData(userData)
