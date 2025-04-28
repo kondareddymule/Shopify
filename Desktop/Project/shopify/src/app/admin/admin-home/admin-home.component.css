@@ -30,3 +30,7 @@
     background-color: #F0ECFD;
     cursor: pointer;
 }
+
+.popup {
+    display: flex;
+}

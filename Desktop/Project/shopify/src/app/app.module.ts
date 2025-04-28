@@ -17,6 +17,14 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { ChartModule } from 'primeng/chart';
+import { MessageService } from 'primeng/api';
+import { FileUploadModule } from 'primeng/fileupload';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -75,6 +83,9 @@ const routes : Routes = [
   }, {
     path: 'admin/users',
     component: AdminUserComponent
+  }, {
+    path: 'admin',
+    component: AdminComponent
   }
 ]
 
@@ -118,8 +129,15 @@ const routes : Routes = [
     ToastModule,
     RippleModule,
     ChartModule,
+    FileUploadModule,
+    RadioButtonModule,
+    MessageModule,
+    MessagesModule,
+    TabMenuModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

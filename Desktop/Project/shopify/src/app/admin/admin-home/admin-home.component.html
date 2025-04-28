@@ -9,11 +9,27 @@
             <th>Product Count</th>
             <th>Ordered Date</th>
             <th>Ordered Delivered</th>
-            <tr *ngFor="let item of item">
+            <tr *ngFor="let item of item" (click)=handleDeleteandView(item)>
                 <td>{{item.username}}</td>
                 <td>{{item.orderedItems.length}}</td>
                 <td>{{item.date}}</td>
                 <td [ngStyle]="{'color': 'green'}">{{item.status}}</td>
+                <div *ngIf="showDeleteAndViewIcon">
+                    <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
+                </div>
+
+                <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                    <div class="popup">
+                        <div>
+                            <img [src]="item.image" height="100px" width="100px"/>
+                        </div>
+                        <div>
+                            <p>Delivered on</p>
+                            <h6>{{item.title}}</h6>
+                            <p>Order Id: {{item.id}}</p>
+                        </div>
+                    </div>
+                </p-dialog>
             </tr>
         </table>
     </div>

@@ -1,18 +1,23 @@
-<div class="container">
-    <div>
+<!-- <div class="container">
+    <div (click)="gotoHomepage()">
         <i class="pi pi-home" style="font-size: 1rem" ></i>
         <span>Home</span>
     </div>
-    <div>
+    <div (click)="gotoProductPage()">
         <i class="pi pi-briefcase" style="font-size: 1rem" ></i>
         <span>Products</span>
     </div>
-    <div>
+    <div (click)="gotoCartPage()">
         <i class="pi pi-shopping-cart" style="font-size: 1rem" ></i>
         <span>Cart</span>
     </div>
-    <div>
+    <div (click)="gotoOrderPage()">
         <i class="pi pi-shopping-bag" style="font-size: 1rem" ></i>
         <span>Order</span>
     </div>
+</div> -->
+
+<div class="card">
+    <p-tabMenu [model]="items" />
 </div>
+

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,9 +12,13 @@ export class FormdatacollectionService {
 
   http: HttpClient = inject(HttpClient)
 
-  postData(getdata: any) {
-    this.http.post(this.apiUrl, getdata).subscribe()
+  postData(formData: any): Observable<any>{
+    return this.http.post(this.apiUrl, formData)
   }
 
+  isDuplicate(username: string): boolean {
+    const existing = ['admin', 'user']
+    return existing.includes(username.toLocaleLowerCase())
+  }
   
 }

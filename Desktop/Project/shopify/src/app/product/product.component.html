@@ -18,7 +18,7 @@
         <p style="font-weight: bold;">{{item.category}}</p>
         <p>{{ item.title }}</p>
         <div class="quantity-container">
-            <span class="icon">-</span>
+            <span class="icon" (click)="decreaseQuantity(item.id)">-</span>
             <span class="icon">{{item.quantity}}</span>
             <span class="icon">+</span>
         </div>

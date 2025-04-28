@@ -9,12 +9,49 @@
             <th>Product Count</th>
             <th>Order Date Time</th>
             <th>Delivery Status</th>
-            <tr *ngFor="let item of item">
+            <tr *ngFor="let item of item" (click)=handleDeleteandView(item)>
                 <td>{{item.id}}</td>
                 <td>{{item.orderedItems.length}}</td>
                 <td>{{item.date}}</td>
                 <td [ngStyle]="{'color': 'green'}">{{item.status}}</td>
+                <div *ngIf="showDeleteAndViewIcon">
+                    <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
+                    <td><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></td>
+                <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                    <div class="popup">
+                        <div>
+                            <img [src]="item.image" height="100px" width="100px"/>
+                        </div>
+                        <div>
+                            <p>Delivered on</p>
+                            <h6>{{item.title}}</h6>
+                            <p>Order Id: {{item.id}}</p>
+                        </div>
+                    </div>
+                </p-dialog>
+
+                <p-dialog header="Delete Product" [modal]="true" [(visible)]="DeleteShow" [style]="{ width: '25rem' }">
+                    <div>
+                        <h1>Are You sure!?? </h1>
+                        <p>Do  you really what to delete the selected item</p>
+                        <div>
+                            <p-button (click)="cancelButton()">Cancel</p-button>
+                            <p-button>Delete</p-button>
+                        </div>
+                    </div>
+                </p-dialog>
+
+                
+                </div>
+                <!-- <div *ngIf="viewItem">
+                    <div class="modal">
+                        <div class="modal-content">
+                            <p-dialog></p-dialog>
+                        </div>
+                    </div>
+                </div> -->
             </tr>
         </table>
     </div>
+
 </div>

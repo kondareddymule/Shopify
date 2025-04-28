@@ -4,21 +4,192 @@
 
 <div class="container">
     <div style="margin: 10px">
-        <p style="color: blue; font-weight: bold;">User Data</p>
-        <p-button label="Add"></p-button>
+        <div class="addicon">
+            <p style="color: blue; font-weight: bold;" >User Data</p>
+            <p-button label="Add" (click)="addUser()"></p-button>
+        </div>
+        <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [style]="{ width: '75rem' }">
+            <div>
+                <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
+                        <div class="pic-container">
+                            <div class="profile-pic">
+                                <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
+                                <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
+                                <label for="imageupload" style="position: absolute; right: 20px; top:10px">
+                                  <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
+                                </label>
+                            </div>
+                       </div>
+                        <div>
+                            <label>User Name</label><br>
+                            <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode"/><br>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label>First Name</label><br>
+                                <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$"/><br>
+                            </div>
+                            <div>
+                                <label>Last Name</label><br>
+                                <input type="text" pInputText [(ngModel)]="lastname" name="lastname" maxlength="20"/><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <div>
+                                    <label>Gender</label>
+                                </div>
+                                <div class="gender-container">
+                                    <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
+                                    <label for="male">Male</label>
+                                    <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
+                                    <label for="female">Female</label>
+                                    <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
+                                    <label for="others">others</label>
+                                </div>
+                            </div>
+                            <div>
+                                <label>DOB</label><br>
+                                <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/m/yy"/>
+                            </div>
+                       </div>
+                        <div>
+                            <label>Email ID</label><br>
+                            <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required/><br>
+                        </div>
+                        <div>
+                            <label>Mobile Number</label><br>
+                            <input type="text" pInputText [(ngModel)]="phone" name="phone" required pattern="^[0-9]{10}$"/><br>
+                        </div>
+                
+                        <div>
+                            <label>Address</label><br>
+                            <textarea 
+                            rows="0"
+                            cols="60"
+                            pInputTextarea 
+                            [(ngModel)]="address"
+                            maxlength="100" name="address">
+                        </textarea>
+                        </div>
+                        <div class="row">
+                            <div>
+                              <label>Country</label><br>
+                              <p-dropdown 
+                                [options]="countries"
+                                [(ngModel)]="country"
+                                optionLabel="name"
+                                placeholder="Select a Country"
+                                (onChange)="onCountryChange($event.value)"
+                                name="country">
+                              </p-dropdown>
+                            </div>
+                          
+                            <div>
+                              <label>State</label><br>
+                              <p-dropdown 
+                                [options]="filteredStates"
+                                [(ngModel)]="state"
+                                optionLabel="name"
+                                placeholder="Select a State"
+                                name="state">
+                              </p-dropdown>
+                            </div>
+                          </div>
+                          
+                          <div class="row">
+                            <div>
+                              <label>Zip Code</label><br>
+                              <input 
+                                type="text" 
+                                pInputText 
+                                maxlength="20" 
+                                [(ngModel)]="zipCode" 
+                                name="zipCode"/>
+                            </div>
+                          
+                            <div>
+                              <label>Time Zone</label><br>
+                              <p-dropdown 
+                                [options]="timeZones"
+                                [(ngModel)]="timeZone"
+                                placeholder="Select a Time Zone"
+                                name="timeZone">
+                              </p-dropdown>
+                            </div>
+                          </div>
+                          
+                          <div class="row">
+                            <div>
+                              <label>Locale</label><br>
+                              <p-dropdown 
+                                [options]="locales"
+                                [(ngModel)]="locale"
+                                placeholder="Select a Locale"
+                                name="locale">
+                              </p-dropdown>
+                            </div>
+                            <div class="adminCheckBox">
+                                <p-checkbox 
+                                [(ngModel)]="admin" 
+                                [binary]="true" 
+                                inputId="binary" 
+                                name="admin"/>
+                                <label>IsAdmin</label><br>
+                
+                            </div>
+                          </div>
+                            <div>
+                                <label>Password</label><br>
+                                <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
+                                <p-message severity="error" text="password is required" *ngIf="passRef.invalid && passRef.touched"></p-message>
+                            </div>
+                            <div>
+                                <label>Confirm Password</label><br>
+                                <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
+                                <p-message severity="error" text="Password do not match"  *ngIf="password && conformpass && password !== conformpass"></p-message>
+                            </div>
+            
+                           <p-button type="submit" label="Sign Up" [disabled]="formData.invalid"></p-button>
+                    </form>
+            </div>
+        </p-dialog>
     <table class="table-container">
         <th>UserImage</th>
         <th>Username</th>
         <th>Age</th>
         <th>Product Count</th>
         <th>Country</th>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of users" (click)="showEye()">
             <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
             <td>{{user.username}}</td>
             <td>{{calculate(user.dob)}}</td>
             <td>{{user.username}}</td>
             <td>{{user.country.name}}</td>
+            <div *ngIf="showDetails">
+                <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
+                <td><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></td>
+            </div>
         </tr>
+        
+
+        <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <div class="popup">
+                <div>
+                    <h1>View contact</h1>
+                </div>
+            </div>
+        </p-dialog>
+        <p-dialog header="Delete Product" [modal]="true" [(visible)]="DeleteShow" [style]="{ width: '25rem' }">
+            <div>
+                <h1>Are You sure!?? </h1>
+                <p>Do  you really what to delete the selected item</p>
+                <div>
+                    <p-button (click)="cancelButton()">Cancel</p-button>
+                    <p-button>Delete</p-button>
+                </div>
+            </div>
+        </p-dialog>
     </table>
 </div>
 </div>

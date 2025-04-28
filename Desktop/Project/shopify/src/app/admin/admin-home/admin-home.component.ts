@@ -9,11 +9,19 @@ import { HttpClient } from '@angular/common/http';
 export class AdminHomeComponent {
   http: HttpClient = inject(HttpClient)
       item: any[] =[]
-    
+      showDeleteAndViewIcon: boolean = false
       ngOnInit() {
         this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
           this.item = items
           console.log(this.item)
         })
+      }
+
+      visible: boolean = false;
+      showDialog() {
+        this.visible = true
+      }
+      handleDeleteandView(itemId: any) {
+        this.showDeleteAndViewIcon = true
       }
 }

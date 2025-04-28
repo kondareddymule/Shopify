@@ -18,7 +18,15 @@ export class ProductComponent {
   ngOnInit() {
     this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
       this.item = items
-      console.log(this.item)
+    })
+  }
+
+  decreaseQuantity(id: any){
+    this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
+      let selectedItem = items.find((item) => item.id === id)
+      if(selectedItem) {
+        console.log(selectedItem.quantity -= 1)
+      }
     })
   }
 }

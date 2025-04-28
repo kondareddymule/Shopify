@@ -1,22 +1,27 @@
+<p-toast></p-toast>
+
 <div class="container">
 <div class="signup-container"> 
-    <h1 class="heading"><span class="material-symbols-outlined">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
+    <h1 class="heading"><span class="material-symbols-outlined" (click)="gotToLogin()">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
     <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
         <div *ngIf="show">
             <div class="pic-container">
                 <div class="profile-pic">
-                    <p-image src="../../assets/Frame.png" alt="Image" width="100px" height="100px" class="profile"/>
-                    <i class="pi pi-pencil" style="font-size: 1rem" style="position: absolute; right: 20px; top:10px" ></i>
+                    <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
+                    <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
+                    <label for="imageupload" style="position: absolute; right: 8px; top:20px">
+                      <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
+                    </label>
                 </div>
            </div>
             <div>
                 <label>User Name</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required/><br>
+                <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode"/><br>
             </div>
             <div class="row">
                 <div>
                     <label>First Name</label><br>
-                    <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required/><br>
+                    <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$"/><br>
                 </div>
                 <div>
                     <label>Last Name</label><br>
@@ -33,13 +38,13 @@
                         <label for="male">Male</label>
                         <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
                         <label for="female">Female</label>
-                        <input type="radio" name="gender" [(ngModel)]="gender" value="others" /> 
-                        <label>others</label>
+                        <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
+                        <label for="others">others</label>
                     </div>
                 </div>
                 <div>
                     <label>DOB</label><br>
-                    <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/m/yy"/>
+                    <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/MM/yy"></p-calendar>
                 </div>
            </div>
             <div>
@@ -48,10 +53,24 @@
             </div>
             <div>
                 <label>Mobile Number</label><br>
-                <input type="text" pInputText [(ngModel)]="phone" name="phone"/><br>
+                <input type="text" pInputText [(ngModel)]="phone" name="phone" required pattern="^[0-9]{10}$"/><br>
             </div>
             <div class="pagination">
-                <span (click)="prevpage()"><</span><span>o</span> <span>o</span><span (click)="nextpage()">></span>
+              <span 
+              [class.disabled]="currentPage === 1" 
+              (click)="currentPage === 1 ? null : prevpage()"
+              >&#60;</span>
+          
+            <span 
+              [class.active]="currentPage === 1">o</span>
+          
+            <span 
+              [class.active]="currentPage === 2">o</span>
+          
+            <span 
+              [class.disabled]="currentPage === 2" 
+              (click)="currentPage === 2 ? null : nextpage()"
+              >&#62;</span>
             </div>
         </div>
         <div *ngIf="!show">
@@ -128,24 +147,41 @@
                     [binary]="true" 
                     inputId="binary" 
                     name="admin"/>
-                    <label>IsAdmin</label><br>
+                    <label style="margin-left: 10px;">IsAdmin</label><br>
     
                 </div>
               </div>
                 <div>
                     <label>Password</label><br>
-                    <input type="text" pInputText [(ngModel)]="password" name="password"/><br>
+                    <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
+                    <p-message severity="error" text="password is required" *ngIf="passRef.invalid && passRef.touched"></p-message>
                 </div>
                 <div>
-                    <label>Conform Password</label><br>
-                    <input type="text" pInputText [(ngModel)]="conformpass" name="conformpass"/><br>
+                    <label>Confirm Password</label><br>
+                    <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
+                    <p-message severity="error" text="Password do not match"  *ngIf="password && conformpass && password !== conformpass"></p-message>
                 </div>
 
-               <p-button type="submit" label="Sign Up" />
+               <p-button type="submit" label="Sign Up" [disabled]="formData.invalid"></p-button>
 
                <div class="pagination">
-                <span (click)="prevpage()"><</span><span>o</span> <span>o</span><span (click)="nextpage()">></span>
-            </div>
+                  <span 
+                    [class.disabled]="currentPage === 1" 
+                    (click)="currentPage === 1 ? null : prevpage()"
+                    >&#60;</span>
+                
+                  <span 
+                    [class.active]="currentPage === 1">o</span>
+                
+                  <span 
+                    [class.active]="currentPage === 2">o</span>
+                
+                  <span 
+                    [class.disabled]="currentPage === 2" 
+                    (click)="currentPage === 2 ? null : nextpage()"
+                    >&#62;</span>
+            
+                </div>
         </div>
     </form>
 </div>

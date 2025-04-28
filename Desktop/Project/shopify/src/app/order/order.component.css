@@ -31,4 +31,19 @@
     background-color: #F0ECFD;
     cursor: pointer;
 }
-  
+
+.modal {
+    position: absolute;
+    top:0px;
+    background-color: black;
+    height: 400px;
+    width: 400px;
+}
+
+.modal-content {
+    position: absolute;
+    display: flex;
+}
+.popup {
+    display: flex;
+}

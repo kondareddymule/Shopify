@@ -1,10 +1,13 @@
 .container {
-    position: absolute;
-    margin-left: 15vw;
     background-color: #ffffff;
-    top: 7vh;
-    width: 85vw;
-    height: 100vh;
+    position: absolute;
+    top: 9vh;
+    left: 15vw;
+    height: 90vh;
+    overflow: auto;
+    width: 84vw;
+    border-radius: 5px;
+    margin-left: 5px;
 }
 .charts {
     display: flex;

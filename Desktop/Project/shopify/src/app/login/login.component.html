@@ -1,5 +1,5 @@
 
-
+<p-toast></p-toast>
 <div class="container">
 <div class="login-container">
     <h1 class="heading">LOGIN To Shopify...</h1>
@@ -7,13 +7,13 @@
 
         <div>
             <label>Email:</label><br>
-            <input type="text" pInputText [(ngModel)]="email" name="email"/><br>
+            <input type="email" pInputText [(ngModel)]="email" name="email"/><br>
         </div>
         <div>
             <label>Password:</label><br>
             <input type="password" pInputText [(ngModel)]="password" name="password"/><br>
         </div>
-        <p-button label="Login" (click)="loginform()"/>
+        <p-button label="Login" (click)="loginform()"></p-button>
         <div class="signup">
           <p>Don't have a account?, <span style="text-decoration: underline; cursor: pointer;" (click)="singuppage()">SIGNUP</span></p>
         </div>

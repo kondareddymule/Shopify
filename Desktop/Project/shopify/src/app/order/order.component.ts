@@ -13,6 +13,8 @@ export class OrderComponent {
   http: HttpClient = inject(HttpClient)
     item: any[] =[]
 
+    showDeleteAndViewIcon: boolean = false
+    viewItem: boolean = false
   
     ngOnInit() {
       this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
@@ -21,4 +23,29 @@ export class OrderComponent {
       }})
       })
     }
+
+    handleDeleteandView(itemId: any) {
+      this.showDeleteAndViewIcon = true
+    }
+
+    viewDetails(item: any) {
+      this.viewItem = true
+    }
+
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+
+    DeleteShow: boolean = false
+
+    showDelete() {
+      this.DeleteShow = true
+    }
+
+    cancelButton() {
+      this.DeleteShow = false
+    }
+    
 }
