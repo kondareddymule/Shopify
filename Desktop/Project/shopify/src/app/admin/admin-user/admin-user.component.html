@@ -1,58 +1,61 @@
 <app-header></app-header>
 <app-dashboard></app-dashboard>
 
-
+<p-toast></p-toast>
 <div class="container">
     <div style="margin: 10px">
         <div class="addicon">
             <p style="color: blue; font-weight: bold;" >User Data</p>
             <p-button label="Add" (click)="addUser()"></p-button>
         </div>
-        <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [style]="{ width: '75rem' }">
-            <div>
+        <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [style]="{ width: '80rem' }">
+            
                 <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
-                        <div class="pic-container">
-                            <div class="profile-pic">
-                                <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
-                                <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
-                                <label for="imageupload" style="position: absolute; right: 20px; top:10px">
-                                  <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
-                                </label>
-                            </div>
-                       </div>
+                    <div class="profile-container">
+                    <div class="profile-pic">
+                    <div style="position: relative;">
+                    <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
+                    <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
+                   </div>
+                   <label for="imageupload" style="position: relative; top: -20px; right: 25px;">
+                     <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
+                   </label>
+                    </div>
+
+                    <div>
+                        <label>User Name</label><br>
+                        <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode"/><br>
+                    </div>
+                        
+                    <div class="row">
                         <div>
-                            <label>User Name</label><br>
-                            <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode"/><br>
+                            <label>First Name</label><br>
+                            <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$"/><br>
                         </div>
-                        <div class="row">
+                        <div>
+                            <label>Last Name</label><br>
+                            <input type="text" pInputText [(ngModel)]="lastname" name="lastname" maxlength="20"/><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
                             <div>
-                                <label>First Name</label><br>
-                                <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$"/><br>
+                                <label>Gender</label>
                             </div>
-                            <div>
-                                <label>Last Name</label><br>
-                                <input type="text" pInputText [(ngModel)]="lastname" name="lastname" maxlength="20"/><br>
+                            <div class="gender-container">
+                                <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
+                                <label for="female">Female</label>
+                                <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
+                                <label for="others">Others</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div>
-                                <div>
-                                    <label>Gender</label>
-                                </div>
-                                <div class="gender-container">
-                                    <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
-                                    <label for="male">Male</label>
-                                    <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
-                                    <label for="female">Female</label>
-                                    <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
-                                    <label for="others">others</label>
-                                </div>
-                            </div>
-                            <div>
-                                <label>DOB</label><br>
-                                <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/m/yy"/>
-                            </div>
-                       </div>
+                        <div>
+                            <label>DOB</label><br>
+                            <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/MM/yy"></p-calendar>
+                        </div>
+                   </div>
                         <div>
                             <label>Email ID</label><br>
                             <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required/><br>
@@ -61,7 +64,10 @@
                             <label>Mobile Number</label><br>
                             <input type="text" pInputText [(ngModel)]="phone" name="phone" required pattern="^[0-9]{10}$"/><br>
                         </div>
-                
+                    </div>
+
+                    <div class="address-container">
+
                         <div>
                             <label>Address</label><br>
                             <textarea 
@@ -117,9 +123,9 @@
                                 name="timeZone">
                               </p-dropdown>
                             </div>
-                          </div>
-                          
-                          <div class="row">
+                            </div>
+                            
+                            <div class="row">
                             <div>
                               <label>Locale</label><br>
                               <p-dropdown 
@@ -135,42 +141,43 @@
                                 [binary]="true" 
                                 inputId="binary" 
                                 name="admin"/>
-                                <label>IsAdmin</label><br>
+                                <label style="margin-left: 10px;">IsAdmin</label><br>
                 
                             </div>
-                          </div>
+                            </div>
+                
                             <div>
                                 <label>Password</label><br>
                                 <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
-                                <p-message severity="error" text="password is required" *ngIf="passRef.invalid && passRef.touched"></p-message>
                             </div>
                             <div>
                                 <label>Confirm Password</label><br>
                                 <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
-                                <p-message severity="error" text="Password do not match"  *ngIf="password && conformpass && password !== conformpass"></p-message>
                             </div>
-            
-                           <p-button type="submit" label="Sign Up" [disabled]="formData.invalid"></p-button>
+                           <div style="display: flex; justify-content: flex-end; gap: 20px; justify-content: flex-end; align-items: center; margin-right: 40px;">
+                                <button class="cancel" type="button" (click)="cancelBtn()">Cancel</button>
+                                <button class="save" type="button" (click)="submitData()">Save</button>
+                           </div>
+                        </div>
                     </form>
-            </div>
-        </p-dialog>
-    <table class="table-container">
-        <th>UserImage</th>
-        <th>Username</th>
-        <th>Age</th>
-        <th>Product Count</th>
-        <th>Country</th>
-        <tr *ngFor="let user of users" (click)="showEye()">
-            <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
-            <td>{{user.username}}</td>
-            <td>{{calculate(user.dob)}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.country.name}}</td>
-            <div *ngIf="showDetails">
-                <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
-                <td><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></td>
-            </div>
-        </tr>
+            </p-dialog>
+            <table class="table-container">
+                <th>UserImage</th>
+                <th>Username</th>
+                <th>Age</th>
+                <th>Product Count</th>
+                <th>Country</th>
+                <tr *ngFor="let user of users" (click)="showEye()">
+                    <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
+                    <td>{{user.username}}</td>
+                    <td>{{calculate(user.dob)}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.country.name}}</td>
+                    <div *ngIf="showDetails">
+                        <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
+                        <td><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></td>
+                    </div>
+                </tr>
         
 
         <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">

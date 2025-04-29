@@ -34,6 +34,14 @@
     position: absolute;
     top: 5px;
     left: 5px;
+    margin: 5px;
+}
+
+.add-container {
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    text-align: center;
 }
 
 .icon {
@@ -51,4 +59,26 @@
     position: absolute;
     left: 200px;
     top: 136px;
+}
+
+span:hover {
+    cursor: pointer;
+}
+
+.center-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.search {
+    position: relative;
+}
+.searchicon {
+    position: absolute;
+    top: 10px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+    -webkit-appearance: none;
 }

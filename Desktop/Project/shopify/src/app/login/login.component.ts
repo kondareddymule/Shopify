@@ -38,7 +38,11 @@ export class LoginComponent {
             this.router.navigate(['/home']);
           }
         } else {
-          alert('Invalid credentials');
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: "Incorrect login details."
+          })
         }
       });
       }

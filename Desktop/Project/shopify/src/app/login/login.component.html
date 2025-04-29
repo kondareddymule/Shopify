@@ -4,7 +4,6 @@
 <div class="login-container">
     <h1 class="heading">LOGIN To Shopify...</h1>
     <form class="form-container">
-
         <div>
             <label>Email:</label><br>
             <input type="email" pInputText [(ngModel)]="email" name="email"/><br>
@@ -13,7 +12,7 @@
             <label>Password:</label><br>
             <input type="password" pInputText [(ngModel)]="password" name="password"/><br>
         </div>
-        <p-button label="Login" (click)="loginform()"></p-button>
+        <p-button label="Login" class="login-btn" (click)="loginform()"></p-button>
         <div class="signup">
           <p>Don't have a account?, <span style="text-decoration: underline; cursor: pointer;" (click)="singuppage()">SIGNUP</span></p>
         </div>

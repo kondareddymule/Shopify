@@ -7,7 +7,7 @@
         <div *ngIf="show">
             <div class="pic-container">
                 <div class="profile-pic">
-                    <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
+                    <img [src]="imageUrl" width="100px" height="100px" class="border"/>
                     <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
                     <label for="imageupload" style="position: absolute; right: 8px; top:20px">
                       <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
@@ -39,17 +39,22 @@
                         <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
                         <label for="female">Female</label>
                         <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
-                        <label for="others">others</label>
+                        <label for="others">Others</label>
                     </div>
                 </div>
                 <div>
                     <label>DOB</label><br>
-                    <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/MM/yy"></p-calendar>
+                    <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/mm/yy"></p-calendar>
                 </div>
            </div>
             <div>
                 <label>Email ID</label><br>
-                <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required/><br>
+                <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required email pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailRef="ngModel"/><br>
+                <p-message 
+                  severity="error" 
+                  text="Invalid email format" 
+                  *ngIf="emailRef.invalid && emailRef.touched">
+              </p-message>
             </div>
             <div>
                 <label>Mobile Number</label><br>
@@ -162,7 +167,7 @@
                     <p-message severity="error" text="Password do not match"  *ngIf="password && conformpass && password !== conformpass"></p-message>
                 </div>
 
-               <p-button type="submit" label="Sign Up" [disabled]="formData.invalid"></p-button>
+               <p-button type="submit" label="Sign Up" class="signup-btn" [disabled]="formData.invalid"></p-button>
 
                <div class="pagination">
                   <span 

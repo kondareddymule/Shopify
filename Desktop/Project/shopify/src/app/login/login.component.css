@@ -33,14 +33,12 @@ input {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 80%;
-    height: 30px;
     cursor: pointer;
     background-color: #f3f3f3;
 }
 
-::ng-deep button {
-    width: 80%;
-    height: 30px;
+::ng-deep .login-btn .p-button {
+    width: 80% !important;
 }
 
 .signup {

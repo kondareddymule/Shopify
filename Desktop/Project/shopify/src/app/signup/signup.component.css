@@ -29,16 +29,11 @@
     align-self: center;
 }
 
-.edit {
-    position: absolute;
-    top: 100px;
-}
-
 .signup-container {
     position: absolute;
     background-color: #ffffff;
     height: 100vh;
-    top: 50px;
+    top: 0px;
     width: 50%;
     overflow: auto;
 }
@@ -62,16 +57,11 @@ input, textarea{
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
-    height: 30px;
     background-color: #f3f3f3;
 }
 
 ::ng-deep .p-calendar .p-inputtext {
     background-color: #f3f3f3;
-}
-
-textarea {
-    height: 60px;
 }
 
 .pagination {
@@ -107,20 +97,18 @@ textarea {
     display: flex;
     column-gap: 20px;
 }
-.row>div{
+.row div{
     width: 100%;
 }
 
 .adminCheckBox{
-    margin-top: 33px;
-
+    margin-top: 40px;
 }
 
-::ng-deep button {
-    width: 100%;
-    height: 30px;
+::ng-deep .signup-btn .p-button {
+    width: 100% !important;
     margin-bottom: 10px;
-}
+  }
 
 span {
     cursor: pointer;
@@ -132,7 +120,6 @@ span {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
     background-color: #f3f3f3;
     text-align: center;
     width: 100% !important;
@@ -147,13 +134,17 @@ span {
     align-items: center;
 }
 
-::ng-deep .p-calendar {
-    height: 30px;
-    background-color: #f3f3f3;
-}
 
 .border {
     border-radius: 50px !important;
     border: 0.1px solid black;
     object-fit: cover;
+}
+
+
+textarea {
+    min-width: 300px;
+    max-width: 435px;
+    max-height: 100px;
+    min-height: 50px;
 }

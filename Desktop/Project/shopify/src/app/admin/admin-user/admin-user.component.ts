@@ -86,7 +86,7 @@ export class AdminUserComponent {
        password: string = "";
        admin: boolean = false;
        description: string = "";
-       imageUrl: string = "../../assets/Frame.png";
+       imageUrl: string = "https://th.bing.com/th/id/R.9134ba8b2a4b4471485d19cb4c133611?rik=%2fij7O%2fAP8IwM9g&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2f3%2fe%2fd%2f1%2f1370391822177766488business_user-hi.png&ehk=dDrwKgUPtb0YMFtC3jxIm7INIl74y7NZA9%2b57Z9HTJ4%3d&risl=&pid=ImgRaw&r=0";
        selectedFile: File | null = null;
     
     
@@ -185,6 +185,7 @@ export class AdminUserComponent {
           });
           return;
         }
+        
       
         if (this.datacollection.isDuplicate(this.username)) {
           this.messageService.add({
@@ -219,7 +220,7 @@ export class AdminUserComponent {
             this.messageService.add({
               severity: 'success',
               summary: 'success',
-              detail: "Registration Successfully"
+              detail: "User added sucessfully"
             })
             this.route.navigate(['/login'])
           }, 
@@ -232,5 +233,9 @@ export class AdminUserComponent {
           }
         }),
         this.route.navigate(['/login'])
+      }
+
+      cancelBtn() {
+        this.adduser = false
       }
 }

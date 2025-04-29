@@ -1,8 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../services/product.service';
 import { HttpClient } from '@angular/common/http';
-
-
 
 @Component({
   selector: 'app-product',
@@ -13,20 +10,47 @@ export class ProductComponent {
 
 
   http: HttpClient = inject(HttpClient)
-  item: any[] =[]
+  items: any[] =[]
+  visible: boolean = false;
+  searchText: string = '';
+
+
+    showDialog() {
+        this.visible = true;
+    }
+
+    filteredItems() {
+      return this.items.filter(item =>
+        item.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        item.category.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+    IsAdmin = JSON.parse(localStorage.getItem('User')).admin
+
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
-      this.item = items
+    this.http.get<any[]>('http://localhost:3000/products').subscribe((item) => {
+      this.items = item
     })
   }
 
-  decreaseQuantity(id: any){
-    this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
-      let selectedItem = items.find((item) => item.id === id)
-      if(selectedItem) {
-        console.log(selectedItem.quantity -= 1)
-      }
-    })
+  decreaseQuantity(id: number) {
+    const item = this.items.find((item) => item.id === id);
+    if (item && item.quantity > 0) {
+      item.quantity -= 1;
+      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe(
+        () => console.log('Quantity updated successfully')
+      );
+    }
+  }
+
+  increaseQuantity(id: number) {
+    const item = this.items.find((item) => item.id === id);
+    if (item) {
+      item.quantity += 1;
+      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe(
+        () => console.log('Quantity updated successfully')
+      );
+    }
   }
 }

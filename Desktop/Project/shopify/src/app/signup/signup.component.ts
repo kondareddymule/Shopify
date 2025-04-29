@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { FormdatacollectionService } from '../services/formdatacollection.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -15,13 +16,15 @@ export class SignupComponent {
   route: Router = inject(Router)
   messageService: MessageService = inject(MessageService)
   datacollection: FormdatacollectionService = inject(FormdatacollectionService)
+  dob: Date | null = null;
+
+  validForm: boolean = true
 
    username: string = "";
    show: boolean = true;
    firstname: string = "";
    lastname: string = "";
-   gender: string = "";
-   dob: string = "";
+   gender: string = "Male";
    email: string = "";
    phone: string = "";
    address: string = "";
@@ -29,7 +32,7 @@ export class SignupComponent {
    password: string = "";
    admin: boolean = false;
    description: string = "";
-   imageUrl: string = "https://th.bing.com/th/id/R.9134ba8b2a4b4471485d19cb4c133611?rik=%2fij7O%2fAP8IwM9g&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2f3%2fe%2fd%2f1%2f1370391822177766488business_user-hi.png&ehk=dDrwKgUPtb0YMFtC3jxIm7INIl74y7NZA9%2b57Z9HTJ4%3d&risl=&pid=ImgRaw&r=0";
+   imageUrl: string = "";
    selectedFile: File | null = null;
 
 
@@ -88,62 +91,119 @@ export class SignupComponent {
 
   onChangeImage(event: any) {
     const file = event.target.files[0];
-    if (file) {
-      const types = ['image/png', 'image/jpeg', 'image/jpg'];
-      if (!types.includes(file.type)) {
-        this.messageService.add({ severity: 'error', summary: 'Invalid Format', detail: 'Only PNG or JPG allowed' });
-        return;
-      }
-      if (file.size > 2 * 1024 * 1024) {
-        this.messageService.add({ severity: 'error', summary: "File too large", detail: "Image less than 2MB allowed" });
-        return;
-      }
-  
-      // Convert image to base64
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result as string; // Store base64 encoded image here
-      };
-      reader.readAsDataURL(file);
+    if (!file) {
+      this.imageUrl = this.getInitials();
+      return;
     }
+  
+    const types = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (!types.includes(file.type)) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Invalid Format',
+        detail: 'Only PNG or JPG formats are allowed.'
+      });
+      return;
+    }
+  
+    if (file.size > 2 * 1024 * 1024) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'File Too Large',
+        detail: 'Image size must be less than 2MB.'
+      });
+      return;
+    }
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
   
+  getInitials(): string {
+    const initials = `${this.firstname.charAt(0)}${this.lastname.charAt(0)}`;
+    return `https://ui-avatars.com/api/?name=${initials}&background=random`;
+  }  
+  
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  
+  
+
+
+submitData() {
+  if (this.data.invalid) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Form Invalid',
+      detail: 'Please fill all required fields correctly.'
+    });
+    return;
+  }
+
+  if (this.password !== this.conformpass) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Password Mismatch',
+      detail: 'Passwords do not match!'
+    });
+    return;
+  }
+
+  // Run both checks in parallel
+  forkJoin({
+    emailExists: this.datacollection.isEmailDuplicate(this.email),
+    usernameExists: this.datacollection.isDuplicate(this.username)
+  }).subscribe({
+    next: ({ emailExists, usernameExists }) => {
+      if (emailExists) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Duplicate Email',
+          detail: 'Email already exists!'
+        });
+        return;
+      }
+
+      if (usernameExists) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Duplicate Username',
+          detail: 'Username already exists!'
+        });
+        return;
+      }
+
+      // Proceed only if both checks pass
+      this.saveUserData();
+    },
+    error: () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Validation failed!'
+      });
+    }
+  });
+}
+
 
   
-  submitData() {
-    if (this.data.invalid) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Form Invalid',
-        detail: 'Please fill all required fields correctly.'
-      });
-      return;
-    }
-  
-    if (this.password !== this.conformpass) {
-      this.messageService.add({
-        severity: 'error',
-        summary: "Password Mismatched",
-        detail: 'Passwords do not match!'
-      });
-      return;
-    }
-  
-    if (this.datacollection.isDuplicate(this.username)) {
-      this.messageService.add({
-        severity: 'error',
-        summary: "Duplicate User",
-        detail: "Username already exists!"
-      });
-      return;
-    }
-  
+
+  saveUserData() {
     const formData = {
       username: this.username,
       firstname: this.firstname,
       lastname: this.lastname,
       gender: this.gender,
-      dob: this.dob,
+      dob: this.formatDate(this.dob),
       email: this.email,
       phone: this.phone,
       address: this.address,
@@ -161,19 +221,19 @@ export class SignupComponent {
       next: () => {
         this.messageService.add({
           severity: 'success',
-          summary: 'success',
-          detail: "Registration Successfully"
-        })
-        this.route.navigate(['/login'])
-      }, 
+          summary: 'Registration Successful',
+          detail: 'You have been registered successfully.'
+        });
+        this.route.navigate(['/login']);
+      },
       error: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Form Submittion Error'
-        })
+          detail: 'Registration failed!'
+        });
       }
-    })
+    });
   }
 
   gotToLogin() {

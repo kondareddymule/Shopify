@@ -5,11 +5,17 @@
     <div>
     <div class="header">
         <p style="color: blue; font-weight: bold;">My Cart</p>
-        <input type="search" style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 34px;"/>
+        <div>
+            <input type="search"
+                [(ngModel)]="searchText"
+                placeholder="Search products..."
+                style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 32px;" />
+            <i class="pi pi-search" style="font-size: 1rem; cursor: pointer; position: absolute; top: 18px; right: 20px;"></i>
+        </div>
+        </div>
     </div>
-
     <div class="product-container">
-        <div *ngFor="let item of item; let i = index">
+        <div *ngFor="let item of filteredItems()">
             <div class="card">
                 <div class="image-container">
                     <div style="margin: 10px;">
@@ -19,16 +25,20 @@
                         <p class="text-ellipsis">{{item.title}}</p>
                         <p style="font-weight: 200;">Price: {{item.price}}</p>
                         <div class="quantity-container">
-                            <span class="icon">-</span>
+                            <span class="icon" (click)="decreaseQuantity(item.id)">-</span>
                             <span class="icon">{{item.quantity}}</span>
-                            <span class="icon">+</span>
+                            <span class="icon" (click)="increaseQuantity(item.id)">+</span>
                         </div>
                     </div>
                 </div>
             </div> 
         </div>
     </div>
-    <div class="orderButton">
+    <div *ngIf="items.length === 0" class="noproducts">
+        <p style="color: black; font-weight: bold; margin-bottom: 10px;">No Product Selected</p>
+        <p-button (click)="backtoproductpage()">Click Here To Continue Shopping</p-button>
+    </div>
+    <div class="orderButton" *ngIf="items.length > 0">
         <p-button (click)="sumbitCartDetails()">Place Order</p-button>
     </div>
 </div>

@@ -11,22 +11,29 @@ export class OrderComponent {
 
 
   http: HttpClient = inject(HttpClient)
-    item: any[] =[]
+    items: any[] =[]
+
+    selectedItemId: number | null = null;
+
+
+
+    username = JSON.parse(localStorage.getItem("User")).username
 
     showDeleteAndViewIcon: boolean = false
     viewItem: boolean = false
   
     ngOnInit() {
       this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
-        items.find((item) => {if(item.username === "Reddy") {
-          this.item.push(item)
+        items.find((item) => {if(item.username === this.username) {
+          this.items.push(item)
       }})
       })
     }
 
-    handleDeleteandView(itemId: any) {
-      this.showDeleteAndViewIcon = true
+    handleDeleteandView(item: any) {
+       this.selectedItemId = item.id;
     }
+
 
     viewDetails(item: any) {
       this.viewItem = true
@@ -34,18 +41,38 @@ export class OrderComponent {
 
     visible: boolean = false;
 
-    showDialog() {
-        this.visible = true;
-    }
-
     DeleteShow: boolean = false
 
-    showDelete() {
-      this.DeleteShow = true
+    selectedOrder: any = null;
+
+    showDialog(item: any) {
+      this.selectedOrder = item;
+      this.visible = true;
+    }
+
+    showDelete(item: any) {
+      this.selectedOrder = item;
+      this.DeleteShow = true;
     }
 
     cancelButton() {
       this.DeleteShow = false
+    }
+
+    deleteOrder() {
+      if (this.selectedOrder) {
+        this.http.delete(`http://localhost:3000/orders/${this.selectedOrder.id}`).subscribe(() => {
+          this.items = this.items.filter(item => item.id !== this.selectedOrder.id);
+          
+          this.DeleteShow = false;
+          this.selectedOrder = null;
+          this.selectedItemId = null;
+    
+          console.log('Order deleted successfully');
+        }, error => {
+          console.error('Error deleting order:', error);
+        });
+      }
     }
     
 }
