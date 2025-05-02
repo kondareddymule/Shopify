@@ -21,10 +21,16 @@
 
 .table-container th, .table-container td {
     padding: 12px 15px;
+
 }
 
 .table-container th {
     background-color: #f3f3f3;
+}
+
+.table-container tr {
+    border: 4px solid #FAFAFA;
+    height: 50px;
 }
 
 .table-container tr:hover {
@@ -47,3 +53,29 @@
 .popup {
     display: flex;
 }
+
+.pagination {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    padding: 5px 5px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+button {
+    height: 40px;
+    width: 100px;
+    background-color: blue;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+

@@ -24,7 +24,9 @@
 .table-container th {
     background-color: #f3f3f3;
 }
-
+.table-container tr {
+    height: 60px;
+}
 .table-container tr:hover {
     background-color: #F0ECFD;
     cursor: pointer;
@@ -47,15 +49,9 @@
 
 .row {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    column-gap: 20px;
 }
 
-.gender-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .address-container {
     position: absolute;
     top: 40px;
@@ -147,4 +143,16 @@ textarea {
     color: #ffffff;
     height: 30px;
     cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+.gender-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

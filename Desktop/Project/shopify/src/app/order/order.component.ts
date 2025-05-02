@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -11,9 +12,10 @@ export class OrderComponent {
 
 
   http: HttpClient = inject(HttpClient)
-    items: any[] =[]
+  messageService: MessageService = inject(MessageService)
+  items: any[] =[]
 
-    selectedItemId: number | null = null;
+    hoveredItemId: number | null = null;
 
 
 
@@ -24,16 +26,11 @@ export class OrderComponent {
   
     ngOnInit() {
       this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
-        items.find((item) => {if(item.username === this.username) {
+        items.filter((item) => {if(item.username === this.username) {
           this.items.push(item)
       }})
       })
     }
-
-    handleDeleteandView(item: any) {
-       this.selectedItemId = item.id;
-    }
-
 
     viewDetails(item: any) {
       this.viewItem = true
@@ -66,13 +63,25 @@ export class OrderComponent {
           
           this.DeleteShow = false;
           this.selectedOrder = null;
-          this.selectedItemId = null;
     
-          console.log('Order deleted successfully');
+          this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Order deleted successfully' });
         }, error => {
           console.error('Error deleting order:', error);
         });
       }
+    }
+
+
+    currentPage: number = 1;
+    pageSize: number = 10;
+
+    get paginatedOrders() {
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      return this.items.slice(startIndex, startIndex + this.pageSize);
+    }
+
+    get totalPages() {
+      return Math.ceil(this.items.length / this.pageSize);
     }
     
 }

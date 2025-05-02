@@ -16,27 +16,45 @@
     </div>
     <div class="product-container">
         <div *ngFor="let item of filteredItems()">
-            <div class="card">
+            <div class="card" (mouseenter)="hoveredItem = item" (mouseleave)="hoveredItem = null">
                 <div class="image-container">
-                    <div style="margin: 10px;">
+                    <div style="margin: 10px; border: 2px solid #f3f3f3; border-radius: 4px;">
                         <p-image [src]="item.image" alt="Image" width="120" height="80"/>
                     </div>
                     <div class="text-container">
                         <p class="text-ellipsis">{{item.title}}</p>
-                        <p style="font-weight: 200;">Price: {{item.price}}</p>
+                        <p style="font-weight: bold;">Price: {{item.price}}</p>
                         <div class="quantity-container">
                             <span class="icon" (click)="decreaseQuantity(item.id)">-</span>
                             <span class="icon">{{item.quantity}}</span>
                             <span class="icon" (click)="increaseQuantity(item.id)">+</span>
                         </div>
                     </div>
+                    <div *ngIf="hoveredItem === item" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+                        <i class="pi pi-trash" style="font-size: 1rem; cursor: pointer"
+                           (click)="openDeleteDialog(item)"></i>
+                    </div>
+                    <p-dialog header="Delete Product"
+                            [(visible)]="deleteIconClick"
+                            [resizable]="false"
+                            [draggable]="false"
+                            [closeOnEscape]="false"
+                            [modal]="true">
+                            <p>Are you sure you want to remove <strong>{{ dialogItem?.title }}</strong> from your cart?</p>
+                        <ng-template pTemplate="footer">
+                            <button type="button" pButton label="Cancel" icon="pi pi-times" (click)="deleteIconClick = false"></button>
+                            <button type="button" pButton label="Delete" icon="pi pi-trash" class="p-button-danger"
+                                    (click)="confirmDelete(dialogItem.id)"></button>
+                        </ng-template>
+                    </p-dialog>
+
                 </div>
             </div> 
         </div>
     </div>
     <div *ngIf="items.length === 0" class="noproducts">
         <p style="color: black; font-weight: bold; margin-bottom: 10px;">No Product Selected</p>
-        <p-button (click)="backtoproductpage()">Click Here To Continue Shopping</p-button>
+        <p-button (click)="backtoproductpage()">Shop Now</p-button>
     </div>
     <div class="orderButton" *ngIf="items.length > 0">
         <p-button (click)="sumbitCartDetails()">Place Order</p-button>

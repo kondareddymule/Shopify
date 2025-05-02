@@ -8,7 +8,7 @@
             <p style="color: blue; font-weight: bold;" >User Data</p>
             <p-button label="Add" (click)="addUser()"></p-button>
         </div>
-        <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [style]="{ width: '80rem' }">
+        <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [resizable]="false" [draggable]="false" [closeOnEscape]="false" [style]="{ width: '80rem', height: '90vh' }">
             
                 <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
                     <div class="profile-container">
@@ -154,7 +154,7 @@
                                 <label>Confirm Password</label><br>
                                 <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
                             </div>
-                           <div style="display: flex; justify-content: flex-end; gap: 20px; justify-content: flex-end; align-items: center; margin-right: 40px;">
+                           <div style="display: flex; justify-content: flex-end; gap: 20px; justify-content: flex-end; align-items: center;">
                                 <button class="cancel" type="button" (click)="cancelBtn()">Cancel</button>
                                 <button class="save" type="button" (click)="submitData()">Save</button>
                            </div>
@@ -167,27 +167,30 @@
                 <th>Age</th>
                 <th>Product Count</th>
                 <th>Country</th>
-                <tr *ngFor="let user of users" (click)="showEye()">
+                <th>Actions</th>
+                <tr *ngFor="let user of paginatedOrders" (click)="showEye(user.username)">
                     <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
                     <td>{{user.username}}</td>
                     <td>{{calculate(user.dob)}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.country.name}}</td>
-                    <div *ngIf="showDetails">
-                        <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
-                        <td><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></td>
-                    </div>
+                    <td style="display: flex; gap: 15px; padding: 12px 15px; align-items: center; height: 60px;">
+                    
+                        <div *ngIf="selectedProfile === user.username"><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></div>
+                        <div *ngIf="selectedProfile === user.username"><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></div>
+                
+                    </td>
                 </tr>
         
 
-        <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [resizable]="false" [draggable]="false" [closeOnEscape]="false">
             <div class="popup">
                 <div>
                     <h1>View contact</h1>
                 </div>
             </div>
         </p-dialog>
-        <p-dialog header="Delete Product" [modal]="true" [(visible)]="DeleteShow" [style]="{ width: '25rem' }">
+        <p-dialog header="Delete Product" [modal]="true" [(visible)]="DeleteShow" [resizable]="false" [draggable]="false" [closeOnEscape]="false" [style]="{ width: '25rem' }">
             <div>
                 <h1>Are You sure!?? </h1>
                 <p>Do  you really what to delete the selected item</p>
@@ -198,5 +201,12 @@
             </div>
         </p-dialog>
     </table>
+    <div class="pagination" *ngIf="users.length > pageSize">
+          <button (click)="currentPageNo = currentPageNo - 1" [disabled]="currentPageNo === 1">Prev</button>
+        
+          <span>Page {{currentPageNo}} of {{totalPages}}</span>
+        
+          <button (click)="currentPageNo = currentPageNo + 1" [disabled]="currentPageNo === totalPages">Next</button>
+        </div>
 </div>
 </div>

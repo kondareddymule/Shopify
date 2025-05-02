@@ -9,7 +9,36 @@
     border-radius: 5px;
     margin-left: 5px;
 }
+
 .charts {
     display: flex;
-    justify-content: center;
-}
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap; 
+    margin-top: 20px;
+  }
+  
+
+  .chart-container {
+    width: 48%; 
+    min-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f8f8f8;
+  }
+  
+
+  .chart-title {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .chart-container p-chart {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+  

@@ -19,7 +19,7 @@ export class DashboardComponent {
         this.items = [
           { label: 'Home', icon: 'pi pi-home', routerLink: '/admin/home' },
           { label: 'Products', icon: 'pi pi-chart-line', routerLink: '/products' },
-          { label: 'Users', icon: 'pi pi-shopping-bag', routerLink: '/admin/users' }
+          { label: 'Users', icon: 'pi pi-users', routerLink: '/admin/users' }
         ];
 
       } else {

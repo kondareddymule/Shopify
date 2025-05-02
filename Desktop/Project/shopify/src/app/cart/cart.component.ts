@@ -18,6 +18,12 @@ export class CartComponent {
     date = formatDate(new Date(), 'dd/MM/yyyy hh:mm a', 'en-US')
     inOrderList: boolean = false;
     searchText: string = '';
+    deleteIcon: boolean = false
+    selectedItem : string | null = null;
+    deleteIconClick: boolean = false
+
+    hoveredItem: any = null;
+    dialogItem: any = null;
 
     filter;
 
@@ -25,7 +31,7 @@ export class CartComponent {
       this.http.get<any[]>('http://localhost:3000/products').subscribe((items) => {
         const orderedItems = items.filter(item => item.quantity > 0);
         this.items = orderedItems;
-        this.filter = { orderedItems };  // Keep your filter structure
+        this.filter = { orderedItems };
       });
     }
     
@@ -79,4 +85,30 @@ export class CartComponent {
       }
     }
 
+    handleDelete(item: string) {
+      this.deleteIcon = true
+      this.selectedItem = item
+    }
+
+    openDeleteDialog(item: any) {
+      this.dialogItem = item;
+      this.deleteIconClick = true;
+    }
+
+    deleteProduct(item: number) {
+      this.deleteIconClick = true
+    }
+
+    confirmDelete(id: number) {
+      const item = this.items.find(i => i.id === id);
+      if (item) {
+        const updatedItem = { ...item, quantity: 0 };
+        this.http.put(`http://localhost:3000/products/${id}`, updatedItem).subscribe(() => {
+          this.loadCartItems();
+          this.deleteIconClick = false;
+          this.dialogItem = null;
+        });
+      }
+    } 
+    
 }

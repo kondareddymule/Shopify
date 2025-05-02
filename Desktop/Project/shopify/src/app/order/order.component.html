@@ -1,48 +1,85 @@
 <app-header></app-header>
 <app-dashboard></app-dashboard>
 
+<p-toast></p-toast>
 <div class="container">
     <div style="margin: 10px">
     <p style="color: blue; font-weight: bold;">My Orders</p>
         <table class="table-container">
-            <th>OrderId</th>
-            <th>Product Count</th>
-            <th>Order Date Time</th>
-            <th>Delivery Status</th>
-            <tr *ngFor="let item of items" (click)="handleDeleteandView(item)">
-                <td>{{ item.id }}</td>
-                <td>{{ item.orderedItems.length }}</td>
-                <td>{{ item.date }}</td>
-                <td [ngStyle]="{ 'color': 'green' }">{{ item.status }}</td>
-              
-                <td *ngIf="selectedItemId === item.id">
-                  <i class="pi pi-eye" style="font-size: 1rem; cursor: pointer" (click)="showDialog(item)"></i>
-                </td>
-                <td *ngIf="selectedItemId === item.id">
-                  <i class="pi pi-trash" style="font-size: 1rem; cursor: pointer" (click)="showDelete(item)"></i>
-                </td>
-            </tr>
-            <p-dialog header="View Product" [(visible)]="visible">
-                <div *ngIf="selectedOrder">
-                  <img [src]="selectedOrder.image" height="100px" width="100px" />
-                  <p>Delivered on</p>
-                  <h6>{{ selectedOrder.title }}</h6>
-                  <p>Order Id: {{ selectedOrder.id }}</p>
+          
+            <thead>
+              <tr>
+                <th>OrderId</th>
+                <th>Product Count</th>
+                <th>Order Date Time</th>
+                <th>Delivery Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let item of paginatedOrders"
+                (mouseenter)="hoveredItemId = item.id"
+                (mouseleave)="hoveredItemId = null">
+              <td>{{ item.id }}</td>
+              <td>{{ item.orderedItems.length }}</td>
+              <td>{{ item.date }}</td>
+              <td [ngStyle]="{ color: item.status === 'pending' ? 'orange' : 'green' }">{{ item.status }}</td>
+              <td style="display: flex; gap: 15px;">
+                <div *ngIf="hoveredItemId === item.id">
+                  <i class="pi pi-eye" style="font-size: 1rem; cursor: pointer;" (click)="showDialog(item)"></i>
                 </div>
-              </p-dialog>
+                <div *ngIf="hoveredItemId === item.id">
+                  <i class="pi pi-trash" style="font-size: 1rem; cursor: pointer;" (click)="showDelete(item)"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <p-dialog header="Order Details" [(visible)]="visible"
+                  [resizable]="false" [draggable]="false" [modal]="true"
+                  [style]="{width: '400px'}">
+                  <div *ngIf="selectedOrder">
+                    <h3 style="margin-bottom: 10px;">Order ID: {{ selectedOrder.id }}</h3>
+                    <p><strong>Product Count:</strong> {{ selectedOrder.orderedItems.length }}</p>
+                    <p><strong>Status:</strong> 
+                      <span [ngStyle]="{ color: selectedOrder.status === 'pending' ? 'orange' : 'green' }">
+                        {{ selectedOrder.status }}
+                      </span>
+                    </p>
+                    <p><strong>Ordered on:</strong> {{ selectedOrder.date }}</p>
+                    <div *ngFor="let product of selectedOrder.orderedItems" style="margin-top: 15px;">
+                      <img [src]="product.image" height="60px" width="60px" style="border-radius: 4px;"/>
+                      <p style="margin: 0;"><strong>{{ product.title }}</strong></p>
+                      <p style="margin: 0;">Price: {{ product.price }}</p>
+                      <p style="margin: 0;">Quantity: {{ product.quantity }}</p>
+                    </div>
+                  </div>
+                </p-dialog>
+
               
-              <p-dialog header="Delete Product" [(visible)]="DeleteShow">
+                <p-dialog header="Delete Order" [(visible)]="DeleteShow"
+                [resizable]="false" [draggable]="false" [modal]="true"
+                [style]="{width: '350px'}">
                 <div>
-                  <h1>Are you sure?</h1>
+                  <h4 style="margin-top: 0;">Are you sure?</h4>
                   <p>Do you really want to delete this order?</p>
-                  <div>
-                    <p-button (click)="cancelButton()">Cancel</p-button>
-                    <p-button (click)="deleteOrder()">Delete</p-button>
+                  <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="cancelButton()"></button>
+                    <button pButton type="button" label="Delete" class="p-button-danger" (click)="deleteOrder()"></button>
                   </div>
                 </div>
               </p-dialog>
-              
+      
         </table>
+        <div class="pagination" *ngIf="items.length > pageSize">
+          <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Prev</button>
+        
+          <span>Page {{currentPage}} of {{totalPages}}</span>
+        
+          <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">Next</button>
+        </div>
+        <div *ngIf="items.length === 0" style="text-align: center; align-self: center; font-weight: bold;">
+            Not Ordered Yet!
+        </div>
     </div>
 
 </div>

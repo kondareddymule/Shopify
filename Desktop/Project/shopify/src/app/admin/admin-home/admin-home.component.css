@@ -34,3 +34,30 @@
 .popup {
     display: flex;
 }
+
+.table-container tr {
+    border: 4px solid #FAFAFA;
+    height: 50px;
+}
+
+::ng-deep .p-dialog-mask {
+    background-color: #0000000d !important;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 40px;
+    gap: 20px;
+}
+
+button {
+    height: 40px;
+    width: 100px;
+    background-color: blue;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormdatacollectionService } from 'src/app/services/formdatacollection.service';
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { StatesService } from 'src/app/services/states.service';
 
 @Component({
   selector: 'app-admin-user',
@@ -14,10 +15,12 @@ export class AdminUserComponent {
 
   http: HttpClient = inject(HttpClient)
   route: Router = inject(Router)
+  stateService: StatesService = inject(StatesService)
 
   visible: boolean = false
   showDetails: boolean = false
   adduser: boolean = false
+  selectedProfile: string | null = null;
 
   users: any[] = []
 
@@ -46,8 +49,9 @@ export class AdminUserComponent {
   showDialog() {
     this.visible = true
   }
-  showEye() {
+  showEye(profile: string) {
     this.showDetails = true
+    this.selectedProfile = profile
   }
   DeleteShow: boolean = false
 
@@ -77,7 +81,7 @@ export class AdminUserComponent {
        show: boolean = true;
        firstname: string = "";
        lastname: string = "";
-       gender: string = "";
+       gender: string = "Male";
        dob: string = "";
        email: string = "";
        phone: string = "";
@@ -86,21 +90,12 @@ export class AdminUserComponent {
        password: string = "";
        admin: boolean = false;
        description: string = "";
-       imageUrl: string = "https://th.bing.com/th/id/R.9134ba8b2a4b4471485d19cb4c133611?rik=%2fij7O%2fAP8IwM9g&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2f3%2fe%2fd%2f1%2f1370391822177766488business_user-hi.png&ehk=dDrwKgUPtb0YMFtC3jxIm7INIl74y7NZA9%2b57Z9HTJ4%3d&risl=&pid=ImgRaw&r=0";
+       imageUrl: string = "../../assets/profile.png";
        selectedFile: File | null = null;
-    
-    
-       currentPage = 1;
-       isEditMode = false;
-       prevpage() {
-        this.show = true;
-        this.currentPage = 1;
-       }
-    
-       nextpage() {
-        this.show = false;
-        this.currentPage = 2
-       }
+     
+
+      isEditMode = false;
+       
     
     
        countries = [
@@ -108,18 +103,7 @@ export class AdminUserComponent {
           { name: 'USA', code: 'US' }
         ];
     
-      states = {
-        IN: [
-          { name: 'Maharashtra', code: 'MH' },
-          { name: 'Karnataka', code: 'KA' },
-          {name: 'Andhra Pradesh', code: 'AP'},
-          {name: 'TamilNadu', code: 'TN'},
-        ],
-        US: [
-          { name: 'California', code: 'CA' },
-          { name: 'Texas', code: 'TX' }
-        ]
-      };
+      states = this.stateService.getStates()
     
       timeZones = [
         'IST', 'PST', 'EST', 'CST', 'MST', 'GMT', 'UTC'
@@ -238,4 +222,17 @@ export class AdminUserComponent {
       cancelBtn() {
         this.adduser = false
       }
+
+
+    currentPageNo: number = 1;
+    pageSize: number = 10;
+
+    get paginatedOrders() {
+      const startIndex = (this.currentPageNo - 1) * this.pageSize;
+      return this.users.slice(startIndex, startIndex + this.pageSize);
+    }
+
+    get totalPages() {
+      return Math.ceil(this.users.length / this.pageSize);
+    }
 }

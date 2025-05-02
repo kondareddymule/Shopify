@@ -25,6 +25,7 @@ export class ProductComponent {
         item.category.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
+    
     IsAdmin = JSON.parse(localStorage.getItem('User')).admin
 
 

@@ -9,18 +9,27 @@
             <th>Product Count</th>
             <th>Ordered Date</th>
             <th>Ordered Delivered</th>
-            <tr *ngFor="let item of item" (click)=handleDeleteandView(item)>
+            <th>Action</th>
+            <tr *ngFor="let item of paginatedOrders" (click)=handleDeleteandView(item)>
                 <td>{{item.username}}</td>
                 <td>{{item.orderedItems.length}}</td>
                 <td>{{item.date}}</td>
-                <td [ngStyle]="{'color': 'green'}">{{item.status}}</td>
-                <div *ngIf="showDeleteAndViewIcon">
+                <td [ngStyle]="{'color': 'green'}" (click)="updateStatus(item)">{{item.status}}</td>
+
+                <div *ngIf="selectedItem === item.id">
                     <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
                 </div>
 
-                <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [resizable]="false" [draggable]="false" [closeOnEscape]="false">
                 </p-dialog>
             </tr>
         </table>
+        <div class="pagination" *ngIf="items.length > pageSize">
+            <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Prev</button>
+          
+            <span>Page {{currentPage}} of {{totalPages}}</span>
+          
+            <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === totalPages">Next</button>
+          </div>
     </div>
 </div>

@@ -4,6 +4,7 @@ import { FormdatacollectionService } from '../services/formdatacollection.servic
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { forkJoin } from 'rxjs';
+import { StatesService } from '../services/states.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +17,7 @@ export class SignupComponent {
   route: Router = inject(Router)
   messageService: MessageService = inject(MessageService)
   datacollection: FormdatacollectionService = inject(FormdatacollectionService)
+  stateService : StatesService = inject(StatesService)
   dob: Date | null = null;
 
   validForm: boolean = true
@@ -32,7 +34,7 @@ export class SignupComponent {
    password: string = "";
    admin: boolean = false;
    description: string = "";
-   imageUrl: string = "";
+   imageUrl: string = "../../assets/profile.png";
    selectedFile: File | null = null;
 
 
@@ -48,24 +50,19 @@ export class SignupComponent {
     this.currentPage = 2
    }
 
+   canGoToNext() {
+    if (!this.data.valid || this.currentPage === 2) return;
+    this.nextpage();
+  }
+
 
    countries = [
       { name: 'India', code: 'IN' },
       { name: 'USA', code: 'US' }
     ];
 
-  states = {
-    IN: [
-      { name: 'Maharashtra', code: 'MH' },
-      { name: 'Karnataka', code: 'KA' },
-      {name: 'Andhra Pradesh', code: 'AP'},
-      {name: 'TamilNadu', code: 'TN'},
-    ],
-    US: [
-      { name: 'California', code: 'CA' },
-      { name: 'Texas', code: 'TX' }
-    ]
-  };
+  states = this.stateService.getStates()
+
 
   timeZones = [
     'IST', 'PST', 'EST', 'CST', 'MST', 'GMT', 'UTC'
@@ -91,6 +88,7 @@ export class SignupComponent {
 
   onChangeImage(event: any) {
     const file = event.target.files[0];
+    
     if (!file) {
       this.imageUrl = this.getInitials();
       return;
@@ -106,7 +104,7 @@ export class SignupComponent {
       return;
     }
   
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 2 * 1024 * 1024) { 
       this.messageService.add({
         severity: 'error',
         summary: 'File Too Large',
@@ -121,6 +119,7 @@ export class SignupComponent {
     };
     reader.readAsDataURL(file);
   }
+  
   
   getInitials(): string {
     const initials = `${this.firstname.charAt(0)}${this.lastname.charAt(0)}`;
@@ -198,6 +197,10 @@ submitData() {
   
 
   saveUserData() {
+
+    if (this.imageUrl === "../../assets/profile.png") {
+      this.imageUrl = this.getInitials();
+    }
     const formData = {
       username: this.username,
       firstname: this.firstname,
@@ -239,4 +242,6 @@ submitData() {
   gotToLogin() {
     this.route.navigate(['/login'])
   }
+
 }
+
