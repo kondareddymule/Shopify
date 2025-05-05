@@ -40,3 +40,11 @@ i, span {
 ::ng-deep .p-highlight {
     border: none
 }
+
+::ng-deep .pi {
+    color: #141569;
+}
+
+::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    color: #141569 !important; 
+}

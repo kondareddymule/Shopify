@@ -5,40 +5,35 @@
     left: 15vw;
     height: 90vh;
     overflow: auto;
-    width: 84vw;
+    width: 41.5vw;
     border-radius: 5px;
     margin-left: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color)
+}
+
+::ng-deep canvas {
+  height: 550px;
+  width: 40vw;
 }
 
 .charts {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    flex-wrap: wrap; 
-    margin-top: 20px;
-  }
-  
+  margin: 20px;
+}
 
-  .chart-container {
-    width: 48%; 
-    min-width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f8f8f8;
-  }
-  
+.chart-title {
+  margin: 10px;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 
-  .chart-title {
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .chart-container p-chart {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-  }
+.noOrders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  height: 40vw;
+}
   

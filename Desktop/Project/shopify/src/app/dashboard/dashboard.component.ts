@@ -18,16 +18,16 @@ export class DashboardComponent {
       if(user['admin']) {
         this.items = [
           { label: 'Home', icon: 'pi pi-home', routerLink: '/admin/home' },
-          { label: 'Products', icon: 'pi pi-chart-line', routerLink: '/products' },
+          { label: 'Products', icon: 'pi pi-chart-line', routerLink: '/admin/products' },
           { label: 'Users', icon: 'pi pi-users', routerLink: '/admin/users' }
         ];
 
       } else {
         this.items = [
-          { label: 'Home', icon: 'pi pi-home', routerLink: '/home' },
-          { label: 'Products', icon: 'pi pi-chart-line', routerLink: '/products' },
-          { label: 'Cart', icon: 'pi pi-shopping-cart', routerLink: '/cart' },
-          { label: 'Order', icon: 'pi pi-shopping-bag', routerLink: '/order' }
+          { label: 'Home', icon: 'pi pi-home', routerLink: '/user/home' },
+          { label: 'Products', icon: 'pi pi-chart-line', routerLink: '/user/products' },
+          { label: 'Cart', icon: 'pi pi-shopping-cart', routerLink: '/user/cart' },
+          { label: 'Order', icon: 'pi pi-shopping-bag', routerLink: '/user/orders' }
         ];
       }
     }

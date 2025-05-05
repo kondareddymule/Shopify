@@ -51,7 +51,14 @@ export class SignupComponent {
    }
 
    canGoToNext() {
-    if (!this.data.valid || this.currentPage === 2) return;
+    if (!this.data.valid || !this.selectedCountryCode ||this.currentPage === 2) {
+      this.messageService.add({
+      severity: 'error',
+      summary: 'Missing Information',
+      detail: 'Please select a country code before proceeding.'
+    });
+      return;
+  }
     this.nextpage();
   }
 
@@ -71,6 +78,14 @@ export class SignupComponent {
   locales = [
     'en-IN', 'en-US', 'fr-FR', 'de-DE'
   ];
+
+  countryCodeList = [
+    { label: '+91', value: '+91' },
+    { label: '+01', value: '+01' }
+  ];
+  
+  selectedCountryCode: string = '';
+  
 
   country: any = '';
   filteredStates: any[] = [];
@@ -138,11 +153,11 @@ export class SignupComponent {
 
 
 submitData() {
-  if (this.data.invalid) {
+  if (this.data.invalid || !this.selectedCountryCode || !this.country || !this.state) {
     this.messageService.add({
       severity: 'error',
       summary: 'Form Invalid',
-      detail: 'Please fill all required fields correctly.'
+      detail: 'Please fill all required fields including country, state, and zip code.'
     });
     return;
   }
@@ -208,7 +223,7 @@ submitData() {
       gender: this.gender,
       dob: this.formatDate(this.dob),
       email: this.email,
-      phone: this.phone,
+      phone: `${this.selectedCountryCode}${this.phone}`,
       address: this.address,
       country: this.country,
       state: this.state,
@@ -243,5 +258,20 @@ submitData() {
     this.route.navigate(['/login'])
   }
 
+  handlegendercolor() {
+    switch(this.gender) {
+      case 'Male':
+      case 'Female':
+      case 'others':
+        return '#141569';
+      default:
+        return '#f3f3f3';
+    }
+  }
+  
+
+  deleteProfile() {
+    this.imageUrl = '../../assets/profile.png'
+  }
 }
 

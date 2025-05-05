@@ -4,6 +4,8 @@
     background-color: #ffffff;
     width: 100vw;
     height: 7vh;
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 
@@ -20,4 +22,37 @@
     height: 7vh;
     width: 1px;
     border: 1px solid grey;
+}
+
+.left-container {
+    justify-content: center;
+    align-items: center;
+}
+.right-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-right: 10px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+::ng-deep .p-inputswitch .p-inputswitch-slider {
+    height: 25px;
+    margin-top: 5px;
+}
+
+button {
+    height: 30px;
+    background-color: #29A5F3;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 90px;
 }

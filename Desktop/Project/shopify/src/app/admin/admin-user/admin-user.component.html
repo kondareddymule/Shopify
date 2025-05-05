@@ -5,7 +5,7 @@
 <div class="container">
     <div style="margin: 10px">
         <div class="addicon">
-            <p style="color: blue; font-weight: bold;" >User Data</p>
+            <p style="color: #141569; font-weight: bold;" >User Data</p>
             <p-button label="Add" (click)="addUser()"></p-button>
         </div>
         <p-dialog header="Add User" [modal]="true" [(visible)]="adduser" [resizable]="false" [draggable]="false" [closeOnEscape]="false" [style]="{ width: '80rem', height: '90vh' }">
@@ -20,7 +20,10 @@
                    <label for="imageupload" style="position: relative; top: -20px; right: 25px;">
                      <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
                    </label>
-                    </div>
+                   <div style="position: relative;" *ngIf="imageUrl !== '../../assets/profile.png'">
+                        <span style="position: absolute; top: 45px; left: -78px; font-size: 24px; font-weight: bold;" (click)="deleteProfile()">&times;</span>
+                   </div>
+                </div>
 
                     <div>
                         <label>User Name</label><br>
@@ -39,21 +42,21 @@
                     </div>
                     <div class="row">
                         <div>
-                            <div>
+                            <div style="margin-bottom: 10px;">
                                 <label>Gender</label>
                             </div>
-                            <div class="gender-container">
-                                <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
+                            <div class="gender-container" [ngStyle]="{'color': handlegendercolor()}">
+                                <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" style="display: none;"/>
                                 <label for="male">Male</label>
-                                <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
+                                <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" style="display: none;"/> 
                                 <label for="female">Female</label>
-                                <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
+                                <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" style="display: none;"/> 
                                 <label for="others">Others</label>
                             </div>
                         </div>
                         <div>
                             <label>DOB</label><br>
-                            <p-calendar [(ngModel)]="dob" name="dob" dateFormat="dd/MM/yy"></p-calendar>
+                            <p-calendar [(ngModel)]="dob" name="dob" appendTo="body" dateFormat="dd/mm/yy"></p-calendar>
                         </div>
                    </div>
                         <div>
@@ -62,7 +65,15 @@
                         </div>
                         <div>
                             <label>Mobile Number</label><br>
-                            <input type="text" pInputText [(ngModel)]="phone" name="phone" required pattern="^[0-9]{10}$"/><br>
+                            <div style="display: flex; align-items: center;">
+                              <span style="margin-right: 5px;">
+                                <p-dropdown
+                                [options]="countryCode">
+                                    
+                               </p-dropdown>
+                               </span>
+                              <input type="text" pInputText [(ngModel)]="phone" name="phone" maxlength="10" required pattern="^[0-9]{10}$" style="padding-left: 40px;"/>
+                            </div>
                         </div>
                     </div>
 
@@ -75,7 +86,8 @@
                             cols="60"
                             pInputTextarea 
                             [(ngModel)]="address"
-                            maxlength="100" name="address">
+                            maxlength="100" name="address"
+                            required>
                         </textarea>
                         </div>
                         <div class="row">
@@ -156,57 +168,69 @@
                             </div>
                            <div style="display: flex; justify-content: flex-end; gap: 20px; justify-content: flex-end; align-items: center;">
                                 <button class="cancel" type="button" (click)="cancelBtn()">Cancel</button>
-                                <button class="save" type="button" (click)="submitData()">Save</button>
+                                <button class="save" type="submit">Save</button>
                            </div>
                         </div>
                     </form>
-            </p-dialog>
-            <table class="table-container">
-                <th>UserImage</th>
-                <th>Username</th>
-                <th>Age</th>
-                <th>Product Count</th>
-                <th>Country</th>
-                <th>Actions</th>
-                <tr *ngFor="let user of paginatedOrders" (click)="showEye(user.username)">
+        </p-dialog>
+        <table class="table-container">
+            <thead>
+                <tr>
+                    <th>UserImage</th>
+                    <th>Username</th>
+                    <th>Age</th>
+                    <th>Product Count</th>
+                    <th>Country</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of paginatedOrders" (mouseenter)="selectedUser = user" (mouseleave)="selectedUser = null">
                     <td><img [src]="user.imageUrl" alt={{user.username}} height="40px" width="40px" style="border-radius: 50%;"/></td>
                     <td>{{user.username}}</td>
                     <td>{{calculate(user.dob)}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.country.name}}</td>
-                    <td style="display: flex; gap: 15px; padding: 12px 15px; align-items: center; height: 60px;">
-                    
-                        <div *ngIf="selectedProfile === user.username"><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></div>
-                        <div *ngIf="selectedProfile === user.username"><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete()"></i></div>
-                
+                    <td>{{user.totalProducts}}</td>
+                    <td>{{user.country?.name || user.country}}</td>
+                    <td>
+                        <div *ngIf="selectedUser === user" style="display: flex; gap: 15px;">
+                            <div><i class="pi pi-pencil" style="font-size: 1rem" (click)="showDialog(user)"></i></div>
+                            <div><i class="pi pi-trash" style="font-size: 1rem" (click)="showDelete(user)"></i></div>
+                        </div>
                     </td>
                 </tr>
-        
-
-        <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [resizable]="false" [draggable]="false" [closeOnEscape]="false">
-            <div class="popup">
-                <div>
-                    <h1>View contact</h1>
-                </div>
+            </tbody>
+        </table>
+        <p-dialog header="Delete User" [modal]="true" [(visible)]="DeleteShow" [resizable]="false" [draggable]="false" [closeOnEscape]="false" [style]="{ width: '25rem' }">
+            <div style="display: flex; justify-content: center;">
+                <img src="../../assets/Vector.png" alt="error" width="50px" height="50px" style="text-align: center"/>
             </div>
+                <p style="text-align: center; margin-top: 10px; font-weight: bold;" >Are You Sure!!?</p>
+                <p style="text-align: center; margin-top: 10px;">Do you really want to remove User?</p>
+        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+            <button type="button" class="cancel" (click)="cancelButton()">Cancel</button>
+            <button type="button" class="save" (click)="confirmDelete(selectedUser)">Delete</button>
+        </div>
         </p-dialog>
-        <p-dialog header="Delete Product" [modal]="true" [(visible)]="DeleteShow" [resizable]="false" [draggable]="false" [closeOnEscape]="false" [style]="{ width: '25rem' }">
-            <div>
-                <h1>Are You sure!?? </h1>
-                <p>Do  you really what to delete the selected item</p>
-                <div>
-                    <p-button (click)="cancelButton()">Cancel</p-button>
-                    <p-button>Delete</p-button>
-                </div>
-            </div>
-        </p-dialog>
-    </table>
     <div class="pagination" *ngIf="users.length > pageSize">
           <button (click)="currentPageNo = currentPageNo - 1" [disabled]="currentPageNo === 1">Prev</button>
         
           <span>Page {{currentPageNo}} of {{totalPages}}</span>
         
           <button (click)="currentPageNo = currentPageNo + 1" [disabled]="currentPageNo === totalPages">Next</button>
-        </div>
+    </div>
 </div>
 </div>
+
+
+
+<!-- <p-calendar [(ngModel)]="date" />
+
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+
+    <form>
+        <p-calendar [(ngModel)]="dateofBirth" appendTo="body"/>
+    </form>
+</p-dialog> -->
+
+

@@ -2,9 +2,23 @@
 <app-header></app-header>
 
 
-<div class="container">
-    <div class="charts">
-        <p-chart type="line" [data]="weeklyOrderData" [options]="options" />
-        <p-chart type="bar" [data]="productChartData" [options]="options" />
+<div>
+    <div class="container">
+        <p class="chart-title">Orders in the current week</p>
+        <div *ngIf="weekLength === undefined">
+            <p class="noOrders">No Orders to display</p>
+        </div>
+        <div class="charts" *ngIf="weekLength !== undefined">
+            <p-chart type="line" [data]="weeklyOrderData" [options]="options" />
+        </div>
+    </div>
+    <div class="container" style="margin-left: 42.5vw; margin-right: 20px;">
+        <p class="chart-title">Quantity vs. Product Names</p>
+        <div *ngIf="orderLength === 0">
+            <p class="noOrders">No Orders to display</p>
+        </div>
+        <div class="charts" *ngIf="orderLength > 0">
+            <p-chart type="bar" [data]="productChartData" [options]="options" />
+        </div>
     </div>
 </div>

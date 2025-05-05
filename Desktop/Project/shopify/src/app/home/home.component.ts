@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
   options: any;
   orders: any[] = [];
 
+  weekLength: number;
+  orderLength : number;
+
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -28,7 +32,10 @@ export class HomeComponent implements OnInit {
         legend: { display: false }
       },
       scales: {
-        x: {
+        x: 
+        
+        {
+          offset: true,
           ticks: { color: textColorSecondary },
           grid: { color: surfaceBorder, drawBorder: false }
         },
@@ -53,6 +60,10 @@ export class HomeComponent implements OnInit {
       this.orders = data.filter(order => order.username === currentUsername);
       this.prepareLineChart();
       this.prepareProductChart();
+      this.orderLength = this.orders.length
+      let array = this.weeklyOrderData.datasets[0].data.map((item: number) => {return item > 0})
+      let somelength = array.find((item: boolean)=> {return item})
+      this.weekLength = somelength
     });
   }
 
@@ -75,7 +86,6 @@ export class HomeComponent implements OnInit {
       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       datasets: [
         {
-          label: 'Orders This Week',
           data: orderCounts,
           fill: false,
           borderColor: getComputedStyle(document.documentElement).getPropertyValue('--green-500'),
@@ -86,33 +96,44 @@ export class HomeComponent implements OnInit {
   }
 
   prepareProductChart() {
+    const staticCategories = [
+      "Clothes",
+      "Shoes",
+      "Utensils",
+      "Watches",
+      "Accessories",
+      "Hats",
+      "Electronics",
+      "Bags",
+      "Glasses"
+    ];
+  
     const productMap: { [category: string]: number } = {};
-
+    staticCategories.forEach(category => productMap[category] = 0);
+  
     for (const order of this.orders) {
       for (const item of order.orderedItems) {
-        const category = item.category;
+        const category = item.category?.trim();
         const quantity = Math.floor(item.quantity) || 1;
-
-        if (productMap[category]) {
+  
+        if (productMap.hasOwnProperty(category)) {
           productMap[category] += quantity;
-        } else {
-          productMap[category] = quantity;
         }
       }
     }
-
-    const labels = Object.keys(productMap);
-    const quantities = Object.values(productMap);
-
+  
+    const labels = staticCategories;
+    const quantities = staticCategories.map(cat => productMap[cat]);
+  
     this.productChartData = {
       labels: labels,
       datasets: [
         {
-          label: 'Quantity Ordered',
           data: quantities,
           backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--blue-500')
         }
       ]
     };
   }
+  
 }

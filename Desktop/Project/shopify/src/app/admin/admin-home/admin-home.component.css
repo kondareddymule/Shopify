@@ -9,6 +9,9 @@
     box-shadow: #ffffff;
     border-radius: 5px;
     margin-left: 5px;
+
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 .table-container {
@@ -16,6 +19,7 @@
     border-collapse: collapse;
     margin: 20px 0;
     text-align: left;
+    margin-bottom: 60px;
 }
 
 .table-container th, .table-container td {
@@ -45,11 +49,17 @@
 }
 
 .pagination {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    margin-right: 40px;
     gap: 20px;
+    background-color: white;
+    padding: 5px 5px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
 button {
@@ -61,3 +71,25 @@ button {
     border: none;
     cursor: pointer;
 }
+
+
+.cancel {
+    width: 25%;
+    background-color: #ffffff;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #141569;
+    height: 30px;
+    cursor: pointer;
+  
+}
+.save {
+    width: 25%;
+    background-color: #141569;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #ffffff;
+    height: 30px;
+    cursor: pointer;
+}
+

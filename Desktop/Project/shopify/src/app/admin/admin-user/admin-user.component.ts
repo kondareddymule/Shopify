@@ -5,6 +5,7 @@ import { FormdatacollectionService } from 'src/app/services/formdatacollection.s
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { StatesService } from 'src/app/services/states.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-user',
@@ -17,21 +18,31 @@ export class AdminUserComponent {
   route: Router = inject(Router)
   stateService: StatesService = inject(StatesService)
 
+  loggedUser = JSON.parse(localStorage.getItem("User"))
+
   visible: boolean = false
   showDetails: boolean = false
   adduser: boolean = false
   selectedProfile: string | null = null;
+  selectedUser : any | null = null
+  dob: Date | undefined;
 
   users: any[] = []
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:3000/users').subscribe((user) => {
-      this.users = user
-    })
+    forkJoin([
+      this.http.get<any[]>('http://localhost:3000/users'),
+      this.http.get<any[]>('http://localhost:3000/orders')
+    ]).subscribe(([users, orders]) => {
+      this.users = users.map(user => {
+        const userOrders = orders.filter(order => order.username === user.username);
+        const totalProducts = userOrders.reduce((count, order) => count + (order.orderedItems?.length || 0), 0);
+        return { ...user, totalProducts };
+      });
+    });
   }
 
-  calculate(dateOfBirth: any) {
-    
+  calculate(dateOfBirth: any) {  
     let date = String(dateOfBirth).split('/');
     let day = parseInt(date[0]);
     let month = parseInt(date[1]) - 1; 
@@ -43,30 +54,122 @@ export class AdminUserComponent {
     if (monthDifference < 0 || (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())) {
       age--;
     }
-    return age;
+    if (age < 0) {
+      return 0
+    } else {
+      return age
+    };
   }
 
-  showDialog() {
-    this.visible = true
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
   }
-  showEye(profile: string) {
-    this.showDetails = true
-    this.selectedProfile = profile
+  
+  
+  
+  showDialog(user: any) {
+    this.isEditMode = true;
+    this.adduser = true;
+    this.id = user.id;
+    this.username = user.username;
+    this.firstname = user.firstname;
+    this.lastname = user.lastname;
+    this.gender = user.gender;
+    this.email = user.email;
+    this.phone = user.phone;
+    this.address = user.address;
+    this.country = user.country;
+    this.state = user.state;
+    this.zipCode = user.Zipcode;
+    this.timeZone = user.timeZone;
+    this.locale = user.locale;
+    this.admin = user.admin;
+    this.imageUrl = user.imageUrl;
+    this.filteredStates = this.states[this.country.code] || [];
   }
+  
   DeleteShow: boolean = false
-
-    showDelete() {
-      this.DeleteShow = true
-    }
+  showDelete(user: any) {
+    this.selectedUser = user;
+    this.DeleteShow = true;
+  }
+  
 
     cancelButton() {
       this.DeleteShow = false
     }
 
     addUser() {
-      this.adduser = true
+      this.isEditMode = false;
+      this.username = '';
+      this.firstname = '';
+      this.lastname = '';
+      this.gender = 'Male';
+      this.email = '';
+      this.phone = '';
+      this.address = '';
+      this.country = '';
+      this.state = '';
+      this.zipCode = '';
+      this.timeZone = '';
+      this.locale = '';
+      this.admin = false;
+      this.imageUrl = '../../assets/profile.png';
+      this.password = '';
+      this.conformpass = '';
+      this.filteredStates = [];
+      this.adduser = true;
     }
 
+
+    confirmDelete(user: any) {
+      
+      this.http.get<any[]>(`http://localhost:3000/orders?username=${user.username}`).subscribe({
+        next: (orders) => {
+          
+          const deleteOrderRequests = orders.map(order =>
+            this.http.delete(`http://localhost:3000/orders/${order.id}`)
+          );
+          
+          const deleteUserRequest = this.http.delete(`http://localhost:3000/users/${user.id}`);
+
+          
+          forkJoin([...deleteOrderRequests, deleteUserRequest]).subscribe({
+            next: () => {
+              this.users = this.users.filter(u => u.username !== user.username);
+
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Deleted',
+                detail: 'User and all their orders deleted successfully'
+              });
+
+              this.DeleteShow = false;
+            },
+            error: () => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Failed to delete user and/or orders'
+              });
+            }
+          });
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to fetch user orders'
+          });
+        }
+      });
+    }
+
+    
     cancelUser() {
       this.adduser = false
     }
@@ -82,7 +185,6 @@ export class AdminUserComponent {
        firstname: string = "";
        lastname: string = "";
        gender: string = "Male";
-       dob: string = "";
        email: string = "";
        phone: string = "";
        address: string = "";
@@ -92,8 +194,9 @@ export class AdminUserComponent {
        description: string = "";
        imageUrl: string = "../../assets/profile.png";
        selectedFile: File | null = null;
+       id: string;
+       
      
-
       isEditMode = false;
        
     
@@ -112,6 +215,8 @@ export class AdminUserComponent {
       locales = [
         'en-IN', 'en-US', 'fr-FR', 'de-DE'
       ];
+
+      countryCode = ['+91', '+01']
     
       country: any = '';
       filteredStates: any[] = [];
@@ -164,28 +269,18 @@ export class AdminUserComponent {
         if (this.password !== this.conformpass) {
           this.messageService.add({
             severity: 'error',
-            summary: "Password Mismatched",
+            summary: 'Password Mismatched',
             detail: 'Passwords do not match!'
-          });
-          return;
-        }
-        
-      
-        if (this.datacollection.isDuplicate(this.username)) {
-          this.messageService.add({
-            severity: 'error',
-            summary: "Duplicate User",
-            detail: "Username already exists!"
           });
           return;
         }
       
         const formData = {
-          username: this.username,
+          id: this.id,
           firstname: this.firstname,
           lastname: this.lastname,
           gender: this.gender,
-          dob: this.dob,
+          dob: this.formatDate(this.dob),
           email: this.email,
           phone: this.phone,
           address: this.address,
@@ -199,26 +294,72 @@ export class AdminUserComponent {
           conformpass: this.conformpass,
           imageUrl: this.imageUrl
         };
+      
+        // EDIT MODE
+        if (this.isEditMode) {
+          const index = this.users.findIndex(u => u.id === this.id);
+          if (index !== -1) {
+            this.users[index] = {
+              ...this.users[index],
+              firstname: this.firstname,
+              lastname: this.lastname,
+              gender: this.gender,
+              dob: this.formatDate(this.dob),
+              email: this.email,
+              phone: this.phone,
+              address: this.address,
+              country: this.country,
+              state: this.state,
+              Zipcode: this.zipCode,
+              timeZone: this.timeZone,
+              locale: this.locale,
+              imageUrl: this.imageUrl
+            };
+      
+            this.http.put(`http://localhost:3000/users/${this.id}`, formData).subscribe({
+              next: () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Updated',
+                  detail: 'User updated successfully!'
+                });
+                this.adduser = false;
+                this.isEditMode = false;
+              },
+              error: () => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Failed to update user.'
+                });
+              }
+            });
+          }
+          return;
+        }
+      
+        // ADD MODE
+
         this.datacollection.postData(formData).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
-              summary: 'success',
-              detail: "User added sucessfully"
-            })
-            this.route.navigate(['/login'])
-          }, 
+              summary: 'Success',
+              detail: 'User added successfully'
+            });
+            this.adduser = false;
+            this.route.navigate(['/login']);
+          },
           error: () => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Form Submittion Error'
-            })
+              detail: 'Form submission failed'
+            });
           }
-        }),
-        this.route.navigate(['/login'])
+        });
       }
-
+      
       cancelBtn() {
         this.adduser = false
       }
@@ -234,5 +375,23 @@ export class AdminUserComponent {
 
     get totalPages() {
       return Math.ceil(this.users.length / this.pageSize);
+    }
+
+
+    handlegendercolor() {
+      switch(this.gender) {
+        case 'Male':
+          return '#141569';
+        case 'Female':
+          return '#141569';
+        case 'other':
+          return '#141569';
+        default:
+          return '#f3f3f3'
+      }
+    }
+
+    deleteProfile() {
+      this.imageUrl = '../../assets/profile.png'
     }
 }

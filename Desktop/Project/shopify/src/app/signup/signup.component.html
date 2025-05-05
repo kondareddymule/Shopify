@@ -12,16 +12,21 @@
                     <label for="imageupload" style="position: absolute; right: 8px; top:20px">
                       <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
                     </label>
+                    <div style="position: relative;" *ngIf="imageUrl !== '../../assets/profile.png'">
+                      <span style="position: absolute; top: 45px; left: -60px; font-size: 24px; font-weight: bold;" (click)="deleteProfile()">&times;</span>
+                 </div>
                 </div>
            </div>
             <div>
-                <label>User Name</label><br>
-                <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode"/><br>
+              <label>User Name</label><br>
+              <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode" #usernameRef="ngModel"/><br>
+              <p *ngIf="usernameRef.invalid && usernameRef.touched" class="error-text">* Username is required</p>              
             </div>
             <div class="row">
                 <div>
-                    <label>First Name</label><br>
-                    <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$"/><br>
+                  <label>First Name</label><br>
+                  <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$" #firstnameRef="ngModel"/><br>
+                  <p *ngIf="firstnameRef.invalid && firstnameRef.touched" class="error-text">First name is required</p>                  
                 </div>
                 <div>
                     <label>Last Name</label><br>
@@ -30,17 +35,52 @@
             </div>
             <div class="row">
                 <div>
-                    <div>
+                    <div style="margin-bottom: 10px;">
                         <label>Gender</label>
                     </div>
                     <div class="gender-container">
-                        <input type="radio" name="gender" id="male" [(ngModel)]="gender" value="Male" />
-                        <label for="male">Male</label>
-                        <input type="radio" name="gender" id="female" [(ngModel)]="gender" value="Female" /> 
-                        <label for="female">Female</label>
-                        <input type="radio" name="gender" id="others" [(ngModel)]="gender" value="others" /> 
-                        <label for="others">Others</label>
-                    </div>
+                      <input 
+                        type="radio" 
+                        name="gender" 
+                        id="male" 
+                        [(ngModel)]="gender" 
+                        value="Male" 
+                        style="display: none;" />
+                    
+                      <label 
+                        for="male" 
+                        [ngClass]="{'active-male': gender === 'Male'}">
+                        Male
+                      </label>
+                    
+                      <input 
+                        type="radio" 
+                        name="gender" 
+                        id="female" 
+                        [(ngModel)]="gender" 
+                        value="Female" 
+                        style="display: none;" />
+                    
+                      <label 
+                        for="female" 
+                        [ngClass]="{'active-female': gender === 'Female'}">
+                        Female
+                      </label>
+                    
+                      <input 
+                        type="radio" 
+                        name="gender" 
+                        id="others" 
+                        [(ngModel)]="gender" 
+                        value="others" 
+                        style="display: none;" />
+                    
+                      <label 
+                        for="others" 
+                        [ngClass]="{'active-other': gender === 'others'}">
+                        Others
+                      </label>
+                    </div>                    
                 </div>
                 <div>
                     <label>DOB</label><br>
@@ -48,17 +88,30 @@
                 </div>
            </div>
             <div>
-                <label>Email ID</label><br>
-                <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required email pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailRef="ngModel"/><br>
-                <p-message 
-                  severity="error" 
-                  text="Invalid email format" 
-                  *ngIf="emailRef.invalid && emailRef.touched">
-              </p-message>
+              <label>Email ID</label><br>
+              <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required #emailRef="ngModel"/><br>
+              <p *ngIf="emailRef.invalid && emailRef.touched" class="error-text">* A valid email address is required.</p>
+              
             </div>
             <div>
-                <label>Mobile Number</label><br>
-                <input type="text" pInputText [(ngModel)]="phone" name="phone" required pattern="^[0-9]{10}$"/><br>
+              <label>Mobile Number</label><br>
+              <div style="display: flex; align-items: center;">
+                <span style="margin-right: 5px;">
+                  <p-dropdown 
+                    [options]="countryCodeList"
+                    [(ngModel)]="selectedCountryCode"
+                    name="countryCode"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="+Code"
+                    #countryCodeRef="ngModel">
+                  </p-dropdown>
+                 </span>
+                 <input type="text" pInputText [(ngModel)]="phone" name="phone" maxlength="10" required pattern="^[0-9]{10}$" #phoneRef="ngModel"/>
+              </div>
+              <p *ngIf="(phoneRef.invalid || countryCodeRef.invalid) && phoneRef.touched" class="error-text">
+                * Enter a valid 10-digit phone number.
+              </p>
             </div>
             <div class="pagination">
               <span 
@@ -75,19 +128,14 @@
               <span 
               [class.disabled]="currentPage === 2 || !formData.form.valid" 
               (click)="canGoToNext()"
-            >&#62;</span>
+              style="cursor: pointer;">&#62;</span>
             </div>
         </div>
         <div *ngIf="!show">
             <div>
-                <label>Address</label><br>
-                <textarea 
-                rows="0"
-                cols="60"
-                pInputTextarea 
-                [(ngModel)]="address"
-                maxlength="100" name="address">
-            </textarea>
+              <label>Address</label><br>
+              <textarea rows="3" cols="60" pInputTextarea [(ngModel)]="address" maxlength="100" name="address" required #addressRef="ngModel"></textarea>
+              <p *ngIf="addressRef.invalid && addressRef.touched" class="error-text">* Address is required.</p>              
             </div>
             <div class="row">
                 <div>
@@ -98,8 +146,11 @@
                     optionLabel="name"
                     placeholder="Select a Country"
                     (onChange)="onCountryChange($event.value)"
-                    name="country">
+                    name="country"
+                    #countryRef="ngModel">
                   </p-dropdown>
+                  <p *ngIf="countryRef.invalid && countryRef.touched" class="error-text">* Country is required.</p>
+
                 </div>
               
                 <div>
@@ -109,20 +160,19 @@
                     [(ngModel)]="state"
                     optionLabel="name"
                     placeholder="Select a State"
-                    name="state">
+                    name="state"
+                    #stateRef="ngModel">
                   </p-dropdown>
+                  <p *ngIf="stateRef.invalid && stateRef.touched" class="error-text">* State is required.</p>
+
                 </div>
               </div>
               
               <div class="row">
                 <div>
                   <label>Zip Code</label><br>
-                  <input 
-                    type="text" 
-                    pInputText 
-                    maxlength="20" 
-                    [(ngModel)]="zipCode" 
-                    name="zipCode"/>
+                  <input type="text" pInputText maxlength="20" [(ngModel)]="zipCode" name="zipCode" required pattern="^[0-9a-zA-Z]+$" #zipRef="ngModel" required/>
+                  <p *ngIf="zipRef.invalid && zipRef.touched" class="error-text">* Zip Code is required.</p>
                 </div>
               
                 <div>
@@ -152,21 +202,21 @@
                     [binary]="true" 
                     inputId="binary" 
                     name="admin"
-                    [disabled]="true"
-                    style="cursor: not-allowed;"/>
+                    [disabled]="true"/>
                     <label style="margin-left: 10px;">IsAdmin</label><br>
     
                 </div>
               </div>
                 <div>
-                    <label>Password</label><br>
-                    <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
-                    <p-message severity="error" text="password is required" *ngIf="passRef.invalid && passRef.touched"></p-message>
+                  <label>Password</label><br>
+                  <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
+                  <p *ngIf="passRef.invalid && passRef.touched" class="error-text">* Password is required.</p>
                 </div>
                 <div>
-                    <label>Confirm Password</label><br>
-                    <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
-                    <p-message severity="error" text="Password do not match"  *ngIf="password && conformpass && password !== conformpass"></p-message>
+                  <label>Confirm Password</label><br>
+                  <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
+                  <p *ngIf="confirmRef.invalid && confirmRef.touched" class="error-text">* Confirm Password is required.</p>
+                  <p *ngIf="password && conformpass && password !== conformpass" class="error-text">* Passwords do not match.</p>
                 </div>
 
                <p-button type="submit" label="Sign Up" class="signup-btn" [disabled]="formData.invalid"></p-button>
@@ -175,7 +225,7 @@
                   <span 
                     [class.disabled]="currentPage === 1" 
                     (click)="currentPage === 1 ? null : prevpage()"
-                    >&#60;</span>
+                    style="cursor: pointer;">&#60;</span>
                 
                   <span 
                     [class.active]="currentPage === 1"></span>

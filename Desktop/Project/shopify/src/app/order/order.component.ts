@@ -17,25 +17,19 @@ export class OrderComponent {
 
     hoveredItemId: number | null = null;
 
+    username = JSON.parse(localStorage.getItem("User"))
 
-
-    username = JSON.parse(localStorage.getItem("User")).username
-
-    showDeleteAndViewIcon: boolean = false
     viewItem: boolean = false
   
     ngOnInit() {
       this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
-        items.filter((item) => {if(item.username === this.username) {
+        items.filter((item) => {if(item.username === this.username.username) {
           this.items.push(item)
       }})
       })
     }
 
-    viewDetails(item: any) {
-      this.viewItem = true
-    }
-
+    
     visible: boolean = false;
 
     DeleteShow: boolean = false

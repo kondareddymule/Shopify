@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,8 @@ export class CartComponent {
 
   http: HttpClient = inject(HttpClient)
   router: Router = inject(Router)
+  messageService: MessageService = inject(MessageService)
+
     items: any[] =[]
     username = JSON.parse(localStorage.getItem("User")).username
     status = "pending";
@@ -48,8 +51,8 @@ export class CartComponent {
     }
 
     sumbitCartDetails() {
-      this.http.post('http://localhost:3000/orders', {'username': this.username, "status": this.status, "date": this.date, ...this.filter}).subscribe((item) => console.log(item))
-      this.router.navigate(['/order'])
+      this.http.post('http://localhost:3000/orders', {'username': this.username, "status": this.status, "date": this.date, "deliveredDate": "Arriving soon", ...this.filter}).subscribe((item) => console.log(item))
+      this.router.navigate(['/user/orders'])
       for (let item of this.items) {
           const updatedItem = { ...item, quantity: 0 };
           this.http.put(`http://localhost:3000/products/${item.id}`, updatedItem).subscribe(() => {
@@ -59,7 +62,7 @@ export class CartComponent {
     }
 
     backtoproductpage() {
-      this.router.navigate(['/products'])
+      this.router.navigate(['/user/products'])
     }
 
 
@@ -107,6 +110,7 @@ export class CartComponent {
           this.loadCartItems();
           this.deleteIconClick = false;
           this.dialogItem = null;
+          this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'Order Removed successfully from Cart' });
         });
       }
     } 

@@ -1,29 +1,64 @@
 <app-header></app-header>
 <app-dashboard></app-dashboard>
 
+
+
 <div class="container">
     <div style="margin: 10px">
-    <p style="color: blue; font-weight: bold;">Welcome Admin!...</p>
+    <p style="color: #141569; font-weight: bold;">Welcome Admin!...</p>
         <table class="table-container">
-            <th>Username</th>
-            <th>Product Count</th>
-            <th>Ordered Date</th>
-            <th>Ordered Delivered</th>
-            <th>Action</th>
-            <tr *ngFor="let item of paginatedOrders" (click)=handleDeleteandView(item)>
-                <td>{{item.username}}</td>
-                <td>{{item.orderedItems.length}}</td>
-                <td>{{item.date}}</td>
-                <td [ngStyle]="{'color': 'green'}" (click)="updateStatus(item)">{{item.status}}</td>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Product Count</th>
+                    <th>Ordered Date</th>
+                    <th>Ordered Delivered</th>
+                    <th>Action</th>
+                </tr>
+           </thead>
+           <tbody>
+                <tr *ngFor="let item of paginatedOrders" (mouseenter)="selectedItem = item.id" (mouseleave)="selectedItem = null">
+                    <td>{{item.username}}</td>
+                    <td>{{item.orderedItems.length}}</td>
+                    <td>{{item.date}}</td>
+                    <td [ngStyle]="{ color: item.status === 'pending' ? 'orange' : 'green' }" (click)="updateStatus(item)">
+                      <span [ngStyle]="{ background: item.status === 'pending' ? 'cornsilk' : 'lightgreen' }" style="padding: 5px; border-radius: 5px;display: inline-block; width: 100px; text-align: center;">{{item.status}}</span>
+                    </td>
 
-                <div *ngIf="selectedItem === item.id">
-                    <td><i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog()"></i></td>
-                </div>
-
-                <p-dialog header="View Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" [resizable]="false" [draggable]="false" [closeOnEscape]="false">
-                </p-dialog>
-            </tr>
+                    <td>
+                        <div *ngIf="selectedItem === item.id">
+                          <i class="pi pi-eye" style="font-size: 1rem" (click)="showDialog(item)"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
+        <div *ngIf="paginatedOrders.length === 0">
+          <div style="display: flex; align-items: center; justify-content: center; height: 50vh;">
+            <p style="text-align: center; font-weight: bold;">No Orders Yet to display</p>
+          </div>
+        </div>
+        <p-dialog header="View Order" [(visible)]="visible"
+                  [resizable]="false" [draggable]="false" [modal]="true"
+                  [style]="{width: '600px'}">
+                  <div *ngIf="viewItems">
+                    <div *ngFor="let product of viewItems.orderedItems" style="margin-top: 15px; display: flex; gap: 10px;">
+                      <div>
+                        <img [src]="product.image" height="60px" width="60px" style="border-radius: 4px; height: 240px; width: 250px;"/>
+                      </div>
+                      <div>
+                          <p style="color: #141569;">Delivered on {{viewItems.deliveredDate}}</p>
+                          <p ><strong>{{ product.title }}</strong></p>
+                          <p style="margin: 2px;"><strong>OrderId:</strong> {{viewItems.id}}</p>
+                          <p style="margin: 2px;"><strong>Delivery Address:</strong>  {{username.username}}</p>
+                          <p style="margin: 2px;"><strong>Delivery street:</strong>  {{username.address}}</p>
+                          <p style="margin: 2px;"><strong>State:</strong>  {{username.state.name}}</p>
+                          <p style="margin: 2px;"><strong>Country:</strong>  {{username.country.name}}</p>
+                          <p style="margin: 2px;"><strong>PinCode:</strong>  {{username.Zipcode}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </p-dialog>
         <div class="pagination" *ngIf="items.length > pageSize">
             <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Prev</button>
           

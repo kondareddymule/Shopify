@@ -4,7 +4,7 @@
 <p-toast></p-toast>
 <div class="container">
     <div style="margin: 10px">
-    <p style="color: blue; font-weight: bold;">My Orders</p>
+    <p style="color: #141569; font-weight: bold;">My Orders</p>
         <table class="table-container">
           
             <thead>
@@ -20,53 +20,55 @@
             <tr *ngFor="let item of paginatedOrders"
                 (mouseenter)="hoveredItemId = item.id"
                 (mouseleave)="hoveredItemId = null">
-              <td>{{ item.id }}</td>
+              <td>{{ item.id.toUpperCase() }}</td>
               <td>{{ item.orderedItems.length }}</td>
               <td>{{ item.date }}</td>
-              <td [ngStyle]="{ color: item.status === 'pending' ? 'orange' : 'green' }">{{ item.status }}</td>
-              <td style="display: flex; gap: 15px;">
-                <div *ngIf="hoveredItemId === item.id">
-                  <i class="pi pi-eye" style="font-size: 1rem; cursor: pointer;" (click)="showDialog(item)"></i>
-                </div>
-                <div *ngIf="hoveredItemId === item.id">
-                  <i class="pi pi-trash" style="font-size: 1rem; cursor: pointer;" (click)="showDelete(item)"></i>
+              <td [ngStyle]="{ color: item.status === 'pending' ? 'orange' : 'green' }">
+                <span [ngStyle]="{ background: item.status === 'pending' ? 'cornsilk' : 'lightgreen' }" style="padding: 5px; border-radius: 5px; display: inline-block; width: 100px; text-align: center;">{{item.status}}</span>
+              </td>
+              <td class="action-icons">
+                <div *ngIf="hoveredItemId === item.id" class="icon-wrapper">
+                  <i class="pi pi-eye" (click)="showDialog(item)"></i>
+                  <i class="pi pi-trash" (click)="showDelete(item)"></i>
                 </div>
               </td>
             </tr>
           </tbody>
-          <p-dialog header="Order Details" [(visible)]="visible"
+          <p-dialog header="View Product" [(visible)]="visible"
                   [resizable]="false" [draggable]="false" [modal]="true"
-                  [style]="{width: '400px'}">
+                  [style]="{width: '600px'}">
                   <div *ngIf="selectedOrder">
-                    <h3 style="margin-bottom: 10px;">Order ID: {{ selectedOrder.id }}</h3>
-                    <p><strong>Product Count:</strong> {{ selectedOrder.orderedItems.length }}</p>
-                    <p><strong>Status:</strong> 
-                      <span [ngStyle]="{ color: selectedOrder.status === 'pending' ? 'orange' : 'green' }">
-                        {{ selectedOrder.status }}
-                      </span>
-                    </p>
-                    <p><strong>Ordered on:</strong> {{ selectedOrder.date }}</p>
-                    <div *ngFor="let product of selectedOrder.orderedItems" style="margin-top: 15px;">
-                      <img [src]="product.image" height="60px" width="60px" style="border-radius: 4px;"/>
-                      <p style="margin: 0;"><strong>{{ product.title }}</strong></p>
-                      <p style="margin: 0;">Price: {{ product.price }}</p>
-                      <p style="margin: 0;">Quantity: {{ product.quantity }}</p>
+                    <div *ngFor="let product of selectedOrder.orderedItems" style="margin-top: 15px; display: flex; gap: 10px;">
+                      <div>
+                        <img [src]="product.image" style="border-radius: 4px; height: 240px; width: 250px;"/>
+                      </div>
+                      <div>
+                          <p style="color: #141569;">Delivered on {{selectedOrder.deliveredDate}}</p>
+                          <p><strong>{{ product.title }}</strong></p>
+                          <p style="margin: 2px;"><strong>OrderId:</strong> {{selectedOrder.id}}</p>
+                          <p style="margin: 2px;"><strong>Delivery Address:</strong>  {{username.username}}</p>
+                          <p style="margin: 2px;"><strong>Delivery street:</strong>  {{username.address}}</p>
+                          <p style="margin: 2px;"><strong>State:</strong>  {{username.state.name}}</p>
+                          <p style="margin: 2px;"><strong>Country:</strong>  {{username.country.name}}</p>
+                          <p style="margin: 2px;"><strong>PinCode:</strong>  {{username.Zipcode}}</p>
+                      </div>
                     </div>
                   </div>
                 </p-dialog>
 
               
-                <p-dialog header="Delete Order" [(visible)]="DeleteShow"
+                <p-dialog [(visible)]="DeleteShow"
                 [resizable]="false" [draggable]="false" [modal]="true"
                 [style]="{width: '350px'}">
-                <div>
-                  <h4 style="margin-top: 0;">Are you sure?</h4>
-                  <p>Do you really want to delete this order?</p>
-                  <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-                    <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="cancelButton()"></button>
-                    <button pButton type="button" label="Delete" class="p-button-danger" (click)="deleteOrder()"></button>
+                <div style="display: flex; justify-content: center;">
+                  <img src="../../assets/Vector.png" alt="error" width="50px" height="50px" style="text-align: center;"/>
+              </div>
+                  <p style="text-align: center; margin-top: 10px; font-weight: bold;">Are You Sure!!?</p>
+                  <p style="text-align: center; margin-top: 10px;">Do you really want to delete the selected item?</p>
+                  <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                      <button type="button" class="cancel"  (click)="cancelButton()">Cancel</button>
+                      <button type="button" class="save" (click)="deleteOrder()">Delete</button>
                   </div>
-                </div>
               </p-dialog>
       
         </table>

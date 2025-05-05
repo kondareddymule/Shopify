@@ -9,6 +9,8 @@
     box-shadow: #ffffff;
     border-radius: 5px;
     margin-left: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 
@@ -20,7 +22,7 @@
 }
 
 .table-container th, .table-container td {
-    padding: 12px 15px;
+    padding: 6px 6px;
 
 }
 
@@ -71,11 +73,60 @@
 button {
     height: 40px;
     width: 100px;
-    background-color: blue;
+    background-color: #141569;
     border-radius: 6px;
     color: white;
     border: none;
     cursor: pointer;
 }
 
+.action-icons {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}
 
+.icon-wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+height: 100%;
+}
+
+.icon-wrapper i {
+font-size: 1.2rem;
+cursor: pointer;
+color: #141569;
+}
+
+::ng-deep .p-dialog{
+    box-shadow: none !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+    margin-top: 10px;
+}
+
+.cancel {
+    width: 25%;
+    background-color: #ffffff;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #141569;
+    height: 30px;
+    cursor: pointer;
+  
+}
+.save {
+    width: 25%;
+    background-color: #141569;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #ffffff;
+    height: 30px;
+    cursor: pointer;
+}
+
+::ng-deep .p-dialog-mask {
+    background-color: #0000000c !important;
+}

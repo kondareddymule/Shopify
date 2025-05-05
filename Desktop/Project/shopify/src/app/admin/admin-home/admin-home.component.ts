@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-admin-home',
@@ -8,10 +9,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminHomeComponent {
   http: HttpClient = inject(HttpClient)
-      items: any[] =[]
-      showDeleteAndViewIcon: boolean = false
+      items: any[] = []
 
       selectedItem: number| null = null
+      date = formatDate(new Date(), 'dd/MM/yyyy hh:mm a', 'en-US')
+
+      username = JSON.parse(localStorage.getItem('User'))
 
       ngOnInit() {
         this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
@@ -19,24 +22,24 @@ export class AdminHomeComponent {
         })
       }
 
+      viewItems : any | null = null;
       visible: boolean = false;
-      showDialog() {
+      showDialog(item: string) {
         this.visible = true
+        this.viewItems = item
       }
 
-      handleDeleteandView(itemId: any) {
-        this.showDeleteAndViewIcon = true
-        this.selectedItem = itemId.id
-      }
+
 
       updateStatus(item: any) {
-        const items = this.items.find((item) => item.id === item.id);
-    if (items && item.status === 'pending') {
-      item.status = "Delivered";
-      this.http.put(`http://localhost:3000/orders/${item.id}`, item).subscribe(
-        () => console.log('status updated successfully')
-      );
-    }
+
+       if (item && item.status === 'pending') {
+        item.status = "Delivered";
+        item.deliveredDate = this.date
+        this.http.put(`http://localhost:3000/orders/${item.id}`, item).subscribe(
+          () => console.log('status updated successfully')
+        );
+        }
       }
 
     currentPage: number = 1;

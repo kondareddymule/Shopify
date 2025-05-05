@@ -29,8 +29,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
-import { UserComponent } from './user/user.component';
+import { AuthGuard } from './auth/auth.guard'
 import { AdminComponent } from './admin/admin.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
@@ -44,56 +43,48 @@ import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { AdminProductComponent } from './admin/admin-product/admin-product.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
+import { GuardGuard } from './auth/guard.guard';
 
 
-const routes : Routes = [
+const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  { path: 'login', component: LoginComponent, canActivate: [GuardGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [GuardGuard] },
+
   {
-    path: 'login',
-    component: LoginComponent
-  }, {
-    path: 'signup',
-    component: SignupComponent
-  }, {
-    path: 'home',
-    component: HomeComponent
-  }, {
-    path: 'dashboard',
-    component: DashboardComponent
-  }, {
-    path: 'header',
-    component: HeaderComponent
+    path: 'user',
+    canActivate: [AuthGuard],
+    data: { admin: false },
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'products', component: ProductComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'orders', component: OrderComponent }
+    ]
   },
   {
-    path: 'products',
-    component: ProductComponent
-  },
-  {
-    path: 'cart',
-    component: CartComponent
-  },
-  {
-    path: 'order',
-    component: OrderComponent
-  },
-  {
-    path: 'admin/home',
-    component: AdminHomeComponent
-  }, {
-    path: 'admin/users',
-    component: AdminUserComponent
-  }, {
     path: 'admin',
-    component: AdminComponent
-  }
-]
+    canActivate: [AuthGuard],
+    data: { admin: true },
+    children: [
+      { path: 'home', component: AdminHomeComponent },
+      { path: 'products', component: ProductComponent },
+      { path: 'users', component: AdminUserComponent }
+    ]
+  },
+  
+
+  { path: '**', redirectTo: 'login' }
+];
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
-    UserComponent,
     AdminComponent,
     SignupComponent,
     LoginComponent,
@@ -104,7 +95,6 @@ const routes : Routes = [
     CartComponent,
     OrderComponent,
     AdminHomeComponent,
-    AdminProductComponent,
     AdminUserComponent
   ],
   imports: [

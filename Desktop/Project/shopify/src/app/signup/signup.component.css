@@ -13,6 +13,8 @@
     top: 0px;
     width: 50vw;
     height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color)
 }
 
 .profile-pic {
@@ -53,7 +55,7 @@
     height: 80vh;
 }
 
-input, textarea{
+input, textarea {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -61,6 +63,7 @@ input, textarea{
 }
 
 ::ng-deep .p-calendar .p-inputtext {
+    margin-top: 10px;
     background-color: #f3f3f3;
 }
 
@@ -93,11 +96,10 @@ input, textarea{
   }
   
   
-  .pagination span.disabled {
+.pagination span.disabled {
     pointer-events: none;
     opacity: 0.4;
-    cursor: not-allowed;
-  }
+}
   
 
 .row {
@@ -145,7 +147,7 @@ span {
 .border {
     border-radius: 50px !important;
     border: 0.1px solid black;
-    object-fit: cover;
+    margin-bottom: 20px;
 }
 
 
@@ -155,3 +157,40 @@ textarea {
     max-height: 100px;
     min-height: 50px;
 }
+
+::ng-deep .p-datepicker {
+    left: -50px !important;
+  }
+
+.error-text {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.gender-container label {
+    display: flex;
+    width: 33%;
+    gap: 2px;
+    border-radius: 6px;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.active-male {
+    background-color:  #141569;
+    color: white;
+  }
+  
+  .active-female {
+    background-color: #141569;
+    color: white;
+  }
+  
+  .active-other {
+    background-color: #141569;
+    color: white;
+  }

@@ -8,6 +8,8 @@
     width: 84vw;
     border-radius: 5px;
     margin-left: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .header {
@@ -28,6 +30,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    gap: 5px;
 }
 
 .product-container {
@@ -38,6 +41,7 @@
 
 .image-container {
     display: flex;
+    gap: 10px;
 }
 
 .text-ellipsis {
@@ -56,6 +60,7 @@ p {
 .icon {
     font-weight: bold;
     width: 15px;
+    color: #141569;
 }
 
 .quantity-container {
@@ -71,8 +76,9 @@ p {
 }
 
 
-::ng-deep button {
+::ng-deep .p-button {
     font-weight: bold;
+    background-color: #141569 !important;
 }
 
 .noproducts {
@@ -91,4 +97,33 @@ input[type="search"]::-webkit-search-cancel-button {
 
 span {
     cursor: pointer;
+}
+
+::ng-deep .p-dialog{
+    box-shadow: none !important;
+}
+
+
+.cancel {
+    width: 25%;
+    background-color: #ffffff;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #141569;
+    height: 30px;
+    cursor: pointer;
+  
+}
+.save {
+    width: 25%;
+    background-color: #141569;
+    border: 1px solid #141569;
+    border-radius: 5px;
+    color: #ffffff;
+    height: 30px;
+    cursor: pointer;
+}
+
+::ng-deep .p-dialog-mask {
+    background-color: #0000000d !important;
 }
