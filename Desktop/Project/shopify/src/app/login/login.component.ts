@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormdatacollectionService } from '../services/formdatacollection.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -12,6 +12,7 @@ import { AuthService } from '../services/authguard.service';
 export class LoginComponent {
   email: string;
   password: string;
+
 
   checkData: FormdatacollectionService = inject(FormdatacollectionService);
   messageService: MessageService = inject(MessageService);

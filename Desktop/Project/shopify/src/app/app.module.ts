@@ -25,12 +25,12 @@ import { MessageModule } from 'primeng/message';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard'
-import { AdminComponent } from './admin/admin.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -85,7 +85,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
     SignupComponent,
     LoginComponent,
     HomeComponent,
@@ -125,7 +124,8 @@ const routes: Routes = [
     MessagesModule,
     TabMenuModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

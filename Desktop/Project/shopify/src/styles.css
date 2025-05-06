@@ -6,7 +6,7 @@
 
 
 body {
-    background-image: url('./assets/cart.jpg');
+    background-color: #F0ECFD;
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
@@ -29,6 +29,15 @@ body.dark-theme {
     --bg-color: #2b2e31;
     --text-color: #f5f5f5;
 }
+
+/* body .card {
+    background-color: #C1BADD;
+}
+
+body.dark-theme .card{
+    background-color: #2b2e31;
+} */
+
 
 /* background-color: var(--bg-color);
 color: var(--text-color); */

@@ -41,7 +41,7 @@ export class StatesService {
         { name: 'West Bengal', code: 'WB' },
         { name: 'Andaman and Nicobar Islands', code: 'AN' },
         { name: 'Chandigarh', code: 'CH' },
-        { name: 'Dadra and Nagar Haveli and Daman and Diu', code: 'DN' },
+        { name: 'Dadra and Daman and Diu', code: 'DN' },
         { name: 'Lakshadweep', code: 'LD' },
         { name: 'Delhi', code: 'DL' },
         { name: 'Puducherry', code: 'PY' },

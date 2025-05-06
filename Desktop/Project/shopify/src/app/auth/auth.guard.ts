@@ -13,8 +13,6 @@ export class AuthGuard {
     const user = this.authService.getUser();
     const expectedAdmin = route.data['admin'];
   
-    console.log('User:', user);
-    console.log('Expected Admin:', expectedAdmin);
   
     if (!user) {
       console.log('No user found, redirecting to login.');

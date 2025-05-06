@@ -8,8 +8,8 @@
     width: 41.5vw;
     border-radius: 5px;
     margin-left: 5px;
-    background-color: var(--bg-color);
-    color: var(--text-color)
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
 }
 
 ::ng-deep canvas {
@@ -24,7 +24,6 @@
 .chart-title {
   margin: 10px;
   font-size: 18px;
-  color: #333;
   margin-bottom: 10px;
   font-weight: bold;
 }

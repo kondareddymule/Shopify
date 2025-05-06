@@ -78,26 +78,16 @@ input, textarea{
     margin-bottom: 10px;
     width: 100%;
     background-color: #f3f3f3;
+    border: none;
 }
 
 ::ng-deep .p-calendar .p-inputtext {
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: #f3f3f3;
+    border: none;
 }
 
-.gender-container label {
-    display: flex;
-    width: 33%;
-    gap: 2px;
-    background: #F3F3F3;
-    border-radius: 6px;
-    height: 50px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
 
 
 ::ng-deep .p-dropdown {
@@ -109,6 +99,7 @@ input, textarea{
     width: 100% !important;
     margin-top: 10px;
     margin-bottom: 10px;
+    border: none;
 }
 
 .row  div{
@@ -119,12 +110,15 @@ input, textarea{
 }
 
 .adminCheckBox{
-    margin-top: 40px;
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
 }
 
 ::ng-deep .p-button {
     width: 100%;
     margin-bottom: 10px;
+    background-color: #141569;
 }
 
 span {
@@ -183,15 +177,60 @@ button {
     cursor: pointer;
 }
 
-
 .gender-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 4px;
 }
 
-.pi {
-    color: #141569;
+.gender-container label {
+    display: flex;
+    width: 33%;
+    border-radius: 6px;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
+.active-male {
+    background-color:  #141569;
+    color: white;
+  }
+  
+  .active-female {
+    background-color: #141569;
+    color: white;
+  }
+  
+  .active-other {
+    background-color: #141569;
+    color: white;
+  }
 
+  .notActive {
+    background-color: #f3f3f3;
+  }
+
+  .error-text {
+    color: red;
+    font-size: 10px;
+    margin-top: -14px;
+    margin-bottom: 0px ;
+}
+
+input.ng-invalid.ng-touched{
+    border: 1px red solid;
+}
+
+::ng-deep .p-dialog-mask {
+    background-color: #0000000d !important;
+}
+
+button.save:disabled {
+    background-color: #141569;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

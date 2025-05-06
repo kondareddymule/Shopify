@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -9,6 +10,8 @@ import { formatDate } from '@angular/common';
 })
 export class ProductComponent {
 
+
+  @ViewChild('formRef') formRef: NgForm;
 
   http: HttpClient = inject(HttpClient)
   items: any[] =[]
@@ -19,6 +22,7 @@ export class ProductComponent {
 
   showDialog() {
       this.visible = true;
+      this.formRef.resetForm();
   }
 
     filteredItems() {
@@ -76,6 +80,7 @@ export class ProductComponent {
   };
 
   onFileSelected(event: any) {
+    this.accept(event)
     const file = event.target.files[0];
     if (file) {
       this.imageName = file.name;
@@ -115,8 +120,6 @@ export class ProductComponent {
     this.visible = false;
   }
 
-  
-
   onSave() {
     this.showErrors = true;
   
@@ -129,8 +132,6 @@ export class ProductComponent {
     if (!isValid) {
       return;
     }
-  
-
   
     this.http.post('http://localhost:3000/products', {
       status: 'pending',
@@ -157,6 +158,7 @@ export class ProductComponent {
   }
 
   resetForm() {
+    this.formRef.resetForm();
     this.product = {
       image: null,
       title: '',
@@ -167,4 +169,8 @@ export class ProductComponent {
     this.showErrors = false;
     this.imageName = null;
   } 
+
+  accept(event: any) {
+    console.log(event)
+  }
 }

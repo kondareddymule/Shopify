@@ -1,16 +1,21 @@
-import { Component, inject, HostListener, OnInit } from '@angular/core';
+import { Component, inject, HostListener} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
   
+  currenturl: ActivatedRoute = inject(ActivatedRoute)
+
+  ActiveRoute: string;
+
   checked: boolean = false;
   user = JSON.parse(localStorage.getItem("User") || '{}');
   imageUrl = this.user.imageUrl;
@@ -35,8 +40,9 @@ export class HeaderComponent implements OnInit {
       this.checked = true;
       document.body.classList.add('dark-theme');
     }
-
+    this.ActiveRoute = this.currenturl.snapshot.url[0].path
     this.resetTimer();
+    console.log(this.currenturl)
   }
 
   toggleTheme() {

@@ -41,7 +41,7 @@ i, span {
     border: none
 }
 
-::ng-deep .pi {
+.pi {
     color: #141569;
 }
 

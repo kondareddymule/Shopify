@@ -108,7 +108,7 @@ color: #141569;
 }
 
 .cancel {
-    width: 25%;
+    width: 100%;
     background-color: #ffffff;
     border: 1px solid #141569;
     border-radius: 5px;
@@ -118,7 +118,7 @@ color: #141569;
   
 }
 .save {
-    width: 25%;
+    width: 100%;
     background-color: #141569;
     border: 1px solid #141569;
     border-radius: 5px;
@@ -128,5 +128,5 @@ color: #141569;
 }
 
 ::ng-deep .p-dialog-mask {
-    background-color: #0000000c !important;
+    background-color: #0000000d !important;
 }

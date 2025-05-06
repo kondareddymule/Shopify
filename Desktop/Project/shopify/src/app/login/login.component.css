@@ -8,6 +8,16 @@
     color: var(--text-color)
 }
 
+body {
+    background-image: url('../../assets/cart.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
 
 .login-container {
     position: absolute;
@@ -26,7 +36,7 @@
     height: 80vh;
 }
 
-.heading {
+.heading1 {
     text-align: center;
     margin-top: 100px;
 }
@@ -37,14 +47,50 @@ input {
     width: 80%;
     cursor: pointer;
     background-color: #f3f3f3;
+    border: none;
 }
 
 ::ng-deep .login-btn .p-button {
     width: 80% !important;
+    background-color: #29A5F3 !important;
 }
 
 .signup {
     text-align: center;
     width: 80%;
     margin-top: 10px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px red solid;
+}
+
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50vw;
+    height: 60vh;
+    margin-top: 60px;
+    align-items: center;
+}
+
+.images-container {
+    position: relative;
+    top: 40px;
+}
+
+.frame {
+    position: absolute;
+    top: -230px;
+    left: -132px;
+}
+.shopify {
+    position: absolute;
+    top: -127px;
+    right: -61px;
+}
+.heading {
+    color: #ffffff;
 }

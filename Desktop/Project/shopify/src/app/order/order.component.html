@@ -6,7 +6,6 @@
     <div style="margin: 10px">
     <p style="color: #141569; font-weight: bold;">My Orders</p>
         <table class="table-container">
-          
             <thead>
               <tr>
                 <th>OrderId</th>
@@ -55,9 +54,8 @@
                     </div>
                   </div>
                 </p-dialog>
-
               
-                <p-dialog [(visible)]="DeleteShow"
+                <p-dialog header="Delete Order" [(visible)]="DeleteShow"
                 [resizable]="false" [draggable]="false" [modal]="true"
                 [style]="{width: '350px'}">
                 <div style="display: flex; justify-content: center;">

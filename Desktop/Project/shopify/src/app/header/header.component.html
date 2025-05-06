@@ -9,7 +9,7 @@
             <div style="margin-left: 100px; display: flex; align-items: center;">
                 <div class="horizontalline"></div>
                 <i class="pi pi-home" style="font-size: 1rem" style="margin-left: 10px;"></i>
-                <p style="margin: 10px;">Home</p>
+                <p style="margin: 10px;">{{ActiveRoute[0].toUpperCase()+ ActiveRoute.slice(1)}}</p>
             </div>
         </div>
        </div>
@@ -27,7 +27,7 @@
             <button (click)="logout()">Logout</button>
         </div>
         <div>
-            <img [src]="imageUrl" alt="profile" height="40px" width="40px" style="margin-top: 5px; border-radius: 50%;"/>
+            <img [src]="imageUrl" alt="profile" height="40px" width="40px" style="margin-top: 5px; border-radius: 50%;" tooltipPosition="left" pTooltip="{{[user.firstname +' '+ user.lastname]}}"/>
         </div>
       </div>
     </div>

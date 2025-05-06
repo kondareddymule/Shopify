@@ -1,14 +1,26 @@
+<body>
+
+<div>
+    <div class="image-container">
+        <div class="images-container">
+          <img src="../../assets/Frame.png" alt="Image" width="150px" height="150px" class="frame"/>
+          <img src="../../assets/Shopify.png" alt="Image"  height="40px" class="shopify"/>
+        </div>
+        <p class="heading">Shopify: Empowering Seamless Shoppingand Efficient Management</p>
+     </div>
+</div>
+
 <p-toast></p-toast>
 
 <div class="container">
 <div class="signup-container"> 
-    <h1 class="heading"><span class="material-symbols-outlined" (click)="gotToLogin()">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
+    <h1 class="heading1"><span class="material-symbols-outlined" (click)="gotToLogin()">subdirectory_arrow_left</span>SIGN UP to Shopify...</h1>
     <form class="form-container" #formData="ngForm" (ngSubmit)="submitData()">
         <div *ngIf="show">
             <div class="pic-container">
                 <div class="profile-pic">
                     <img [src]="imageUrl" alt="Image" width="100px" height="100px" class="border"/>
-                    <input type="file" id="imageupload" (change)="onChangeImage($event)" accept=".png, .jpg" style="display: none;"/>
+                    <input type="file" id="imageupload" (change)="onChangeImage($event)" style="display: none;" accept=".jpg,.jpeg,.png"/>
                     <label for="imageupload" style="position: absolute; right: 8px; top:20px">
                       <i class="pi pi-pencil" style="font-size: 1rem; cursor: pointer;"></i>
                     </label>
@@ -18,15 +30,19 @@
                 </div>
            </div>
             <div>
+              
               <label>User Name</label><br>
               <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode" #usernameRef="ngModel"/><br>
-              <p *ngIf="usernameRef.invalid && usernameRef.touched" class="error-text">* Username is required</p>              
+              <p *ngIf="usernameRef.invalid && usernameRef.touched" class="error-text">* Username is required</p>
+              <p></p>
+              
+                 
             </div>
             <div class="row">
                 <div>
                   <label>First Name</label><br>
                   <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$" #firstnameRef="ngModel"/><br>
-                  <p *ngIf="firstnameRef.invalid && firstnameRef.touched" class="error-text">First name is required</p>                  
+                  <p *ngIf="firstnameRef.invalid && firstnameRef.touched" class="error-text">* First name is required</p>                  
                 </div>
                 <div>
                     <label>Last Name</label><br>
@@ -49,7 +65,10 @@
                     
                       <label 
                         for="male" 
-                        [ngClass]="{'active-male': gender === 'Male'}">
+                        [ngClass]="{
+                          'active-other': gender === 'Male',
+                          'notActive': gender !== 'Male'
+                      }">
                         Male
                       </label>
                     
@@ -63,7 +82,10 @@
                     
                       <label 
                         for="female" 
-                        [ngClass]="{'active-female': gender === 'Female'}">
+                        [ngClass]="{
+                          'active-other': gender === 'Female',
+                          'notActive': gender !== 'Female'
+                      }">
                         Female
                       </label>
                     
@@ -77,7 +99,10 @@
                     
                       <label 
                         for="others" 
-                        [ngClass]="{'active-other': gender === 'others'}">
+                        [ngClass]="{
+                          'active-other': gender === 'others',
+                          'notActive': gender !== 'others'
+                      }">
                         Others
                       </label>
                     </div>                    
@@ -243,3 +268,5 @@
     </form>
 </div>
 </div>
+
+</body>
