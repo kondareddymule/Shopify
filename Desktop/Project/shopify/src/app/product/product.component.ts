@@ -32,7 +32,8 @@ export class ProductComponent {
       );
     }
     
-    IsAdmin = JSON.parse(localStorage.getItem('User')).admin
+    localUser = JSON.parse(localStorage.getItem("User") || '{}');
+    IsAdmin = this.localUser.admin
 
     loadProducts() {
       this.http.get<any[]>('http://localhost:3000/products')
@@ -50,9 +51,7 @@ export class ProductComponent {
     const item = this.items.find((item) => item.id === id);
     if (item && item.quantity > 0) {
       item.quantity -= 1;
-      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe(
-        () => console.log('Quantity updated successfully')
-      );
+      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe();
     }
   }
 
@@ -60,9 +59,7 @@ export class ProductComponent {
     const item = this.items.find((item) => item.id === id);
     if (item) {
       item.quantity += 1;
-      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe(
-        () => console.log('Quantity updated successfully')
-      );
+      this.http.put(`http://localhost:3000/products/${id}`, item).subscribe()
     }
   }
   
@@ -171,6 +168,6 @@ export class ProductComponent {
   } 
 
   accept(event: any) {
-    console.log(event)
+    //console.log(event)
   }
 }

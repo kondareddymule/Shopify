@@ -53,7 +53,8 @@ body {
 
 .heading1 {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .form-container {
@@ -72,12 +73,14 @@ input, textarea {
     width: 100%;
     background-color: #f3f3f3;
     border: none;
+    cursor: pointer;
 }
 
 ::ng-deep .p-calendar .p-inputtext {
     margin-top: 10px;
     background-color: #f3f3f3;
     border: none;
+    cursor: pointer;
 }
 
 .pagination {
@@ -149,7 +152,6 @@ span {
     align-items: center;
     justify-content: center;
     background-color: #f3f3f3;
-    text-align: center;
     width: 100% !important;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -194,11 +196,12 @@ textarea {
     display: flex;
     width: 33%;
     border-radius: 6px;
-    height: 50px;
+    height: 48px;
     text-align: center;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .active-male {

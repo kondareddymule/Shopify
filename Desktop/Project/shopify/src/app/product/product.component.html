@@ -82,7 +82,6 @@
           [closeOnEscape]="false">
 
             <form (ngSubmit)="onSave()" #formRef="ngForm">
-                <!-- Image Upload -->
                 <label style="margin-bottom: 10px;">Add Image</label>
                 <div class="filetype"
                     (drop)="onFileDrop($event)"
@@ -99,24 +98,24 @@
                 <div *ngIf="imagePreview" style="margin-top: 10px;">
                     <div style="position: relative;">
                     <img [src]="imagePreview" alt="Image Preview" style="width: 100%; height: 150px;" />
-                    <span class="crossIcon" (click)="removeImage()" style="position: absolute; top: 5px; right: 10px; cursor: pointer;">&times;</span>
+                    <span class="crossIcon" (click)="removeImage()" style="position: absolute; top: 5px; right: 10px; cursor: pointer; color: red;">&times;</span>
                     </div>
                     <p style="background-color: #ffffff;">{{ imageName  }}</p>
                 </div>
                 </div>
-                <p *ngIf="showErrors && !imagePreview" style="color: red; font-size: 0.85em;">* Image is required</p>
+                <p *ngIf="showErrors && !imagePreview" style="color: red; font-size: 10px;">* Image is required</p>
 
                 <label style="margin-bottom: 10px;">Product Name</label><br>
                 <input type="text" pInputText [(ngModel)]="product.title" name="title" required/><br>
-                <p *ngIf="showErrors && !product.title" style="color: red; font-size: 0.85em;">* Product name is required</p>
+                <p *ngIf="showErrors && !product.title" style="color: red; font-size: 10px;">* Product name is required</p>
 
                 <label style="margin-bottom: 10px;">Category</label><br>
                 <input type="text" pInputText [(ngModel)]="product.category" name="category" required/><br>
-                <p *ngIf="showErrors && !product.category" style="color: red; font-size: 0.85em;">* Category is required</p>
+                <p *ngIf="showErrors && !product.category" style="color: red; font-size: 10px;">* Category is required</p>
 
                 <label style="margin-bottom: 10px;">Price</label><br>
                 <input type="number" pInputText [(ngModel)]="product.price" name="price" required/><br>
-                <p *ngIf="showErrors && (!product.price || product.price <= 0)" style="color: red; font-size: 0.85em;">* Valid price is required</p>
+                <p *ngIf="showErrors && (!product.price || product.price <= 0)" style="color: red; font-size: 10px;">* Valid price is required</p>
 
                 <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
                 <button type="button" class="cancel" (click)="onCancel()">Cancel</button>

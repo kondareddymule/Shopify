@@ -16,7 +16,8 @@ export class CartComponent {
   messageService: MessageService = inject(MessageService)
 
     items: any[] =[]
-    username = JSON.parse(localStorage.getItem("User")).username
+    strogedUser = JSON.parse(localStorage.getItem("User") || '{}');
+    username = this.strogedUser.username
     status = "pending";
     date = formatDate(new Date(), 'dd/MM/yyyy hh:mm a', 'en-US')
     inOrderList: boolean = false;

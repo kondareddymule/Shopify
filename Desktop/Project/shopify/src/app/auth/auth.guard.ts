@@ -13,15 +13,12 @@ export class AuthGuard {
     const user = this.authService.getUser();
     const expectedAdmin = route.data['admin'];
   
-  
     if (!user) {
-      console.log('No user found, redirecting to login.');
       this.router.navigate(['/login']);
       return false;
     }
   
     if (expectedAdmin && !user.admin) {
-      console.log('User is not admin, redirecting to login.');
       this.router.navigate(['/login'], { queryParams: { unauthorized: true } });
       return false;
     }

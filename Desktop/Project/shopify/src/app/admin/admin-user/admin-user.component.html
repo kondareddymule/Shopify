@@ -25,14 +25,14 @@
                    </div>
                 </div>
                        <div>
-                        <label>User Name</label><br>
+                        <label>User Name *</label><br>
                         <input type="text" pInputText [(ngModel)]="username" name="username" maxlength="20" required pattern="^[a-zA-Z0-9]*$" [disabled]="isEditMode" #usernameRef="ngModel"/><br>
                         <p *ngIf="usernameRef.invalid && usernameRef.touched" class="error-text">* Username is required</p>
                        </div>
                         
                     <div class="row">
                         <div>
-                            <label>First Name</label><br>
+                            <label>First Name *</label><br>
                             <input type="text" pInputText [(ngModel)]="firstname" name="firstname" maxlength="30" required pattern="^[a-zA-Z0-9 ]+$" #firstnameRef="ngModel"/><br>
                             <p *ngIf="firstnameRef.invalid && firstnameRef.touched" class="error-text">First name is required</p>
                         </div>
@@ -101,16 +101,16 @@
                         </div>
                         <div>
                             <label>DOB</label><br>
-                            <p-calendar [(ngModel)]="dob" name="dob" appendTo="body" dateFormat="dd/mm/yy"></p-calendar>
+                            <p-calendar [(ngModel)]="dob" name="dob" appendTo="body" [maxDate]="minDate" dateFormat="dd/mm/yy"></p-calendar>
                         </div>
                    </div>
                         <div>
-                            <label>Email ID</label><br>
+                            <label>Email ID *</label><br>
                             <input type="email" pInputText [(ngModel)]="email" name="email" maxlength="100" required #emailRef="ngModel"/><br>
                             <p *ngIf="emailRef.invalid && emailRef.touched" class="error-text">* A valid email address is required.</p>
                         </div>
                         <div>
-                            <label>Mobile Number</label><br>
+                            <label>Mobile Number *</label><br>
                             <div style="display: flex; align-items: center;">
                               <span style="margin-right: 5px;">
                                 <p-dropdown 
@@ -134,13 +134,13 @@
                     <div class="address-container">
 
                         <div>
-                            <label>Address</label><br>
+                            <label>Address *</label><br>
                             <textarea rows="3" cols="60" pInputTextarea [(ngModel)]="address" maxlength="100" name="address" required #addressRef="ngModel"></textarea>
                             <p *ngIf="addressRef.invalid && addressRef.touched" class="error-text">* Address is required.</p>
                         </div>
                         <div class="row">
                             <div>
-                              <label>Country</label><br>
+                              <label>Country *</label><br>
                               <p-dropdown 
                                 [options]="countries"
                                 [(ngModel)]="country"
@@ -154,7 +154,7 @@
                             </div>
                           
                             <div>
-                              <label>State</label><br>
+                              <label>State *</label><br>
                             <p-dropdown 
                                 [options]="filteredStates"
                                 [(ngModel)]="state"
@@ -169,7 +169,7 @@
                           
                           <div class="row">
                             <div>
-                                <label>Zip Code</label><br>
+                                <label>Zip Code *</label><br>
                                 <input type="text" pInputText maxlength="20" [(ngModel)]="zipCode" name="zipCode" required pattern="^[0-9a-zA-Z]+$" #zipRef="ngModel" required/>
                                 <p *ngIf="zipRef.invalid && zipRef.touched" class="error-text">* Zip Code is required.</p>
                             </div>
@@ -208,13 +208,13 @@
                             </div>
                 
                             <div>
-                                <label>Password</label><br>
-                                <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel"/><br>
+                                <label>Password *</label><br>
+                                <input type="password" pInputText [(ngModel)]="password" name="password" required #passRef="ngModel" [disabled]="isEditMode"/><br>
                                 <p *ngIf="passRef.invalid && passRef.touched" class="error-text">* Password is required.</p>
                             </div>
                             <div>
-                                <label>Confirm Password</label><br>
-                                <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel"/><br>
+                                <label>Confirm Password *</label><br>
+                                <input type="password" pInputText [(ngModel)]="conformpass" name="conformpass" required #confirmRef="ngModel" [disabled]="isEditMode" autocomplete="on"/><br>
                                 <p *ngIf="confirmRef.invalid && confirmRef.touched" class="error-text">* Confirm Password is required.</p>
                                 <p *ngIf="password && conformpass && password !== conformpass" class="error-text">* Passwords do not match.</p>
                             </div>

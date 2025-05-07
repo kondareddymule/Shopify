@@ -13,8 +13,7 @@ export class DashboardComponent {
   items: MenuItem[] | undefined;
 
     ngOnInit() {
-      let user = localStorage.getItem("User")
-      user = JSON.parse(user)
+      let user = JSON.parse(localStorage.getItem("User") || '{}');
       if(user['admin']) {
         this.items = [
           { label: 'Home', icon: 'pi pi-home', routerLink: '/admin/home' },

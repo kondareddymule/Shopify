@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject} from '@angular/core';
+import { IdeltimeService } from './services/ideltime.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'shopify';
+
+  ideltime: IdeltimeService = inject(IdeltimeService)
+
 }

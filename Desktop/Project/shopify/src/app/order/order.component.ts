@@ -17,7 +17,7 @@ export class OrderComponent {
 
     hoveredItemId: number | null = null;
 
-    username = JSON.parse(localStorage.getItem("User"))
+    username = JSON.parse(localStorage.getItem("User") || '{}');
 
     viewItem: boolean = false
   

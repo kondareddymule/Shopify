@@ -16,11 +16,13 @@
     <form class="form-container">
         <div>
             <label>Email:</label><br>
-            <input type="email" pInputText [(ngModel)]="email" name="email"/><br>
+            <input type="email" pInputText [(ngModel)]="email" name="email" required #emailRef="ngModel"/><br>
+            <p *ngIf="emailRef.invalid && emailRef.touched" style="color: red; font-size: 10px;">* Email is required.</p>
         </div>
         <div>
             <label>Password:</label><br>
-            <input type="password" pInputText [(ngModel)]="password" name="password"/><br>
+            <input type="password" pInputText [(ngModel)]="password" name="password" required #passwordRef="ngModel" autocomplete="on"/><br>
+            <p *ngIf="passwordRef.invalid && passwordRef.touched" style="color: red; font-size: 10px;">* Password is required.</p>
         </div>
         <p-button label="Login" class="login-btn" (click)="loginform()"></p-button>
         <div class="signup">

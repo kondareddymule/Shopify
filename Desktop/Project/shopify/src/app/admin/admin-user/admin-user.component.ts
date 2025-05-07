@@ -18,7 +18,7 @@ export class AdminUserComponent {
   route: Router = inject(Router)
   stateService: StatesService = inject(StatesService)
 
-  loggedUser = JSON.parse(localStorage.getItem("User"))
+  loggedUser = JSON.parse(localStorage.getItem("User") || '{}');
 
   visible: boolean = false
   showDetails: boolean = false
@@ -26,6 +26,7 @@ export class AdminUserComponent {
   selectedProfile: string | null = null;
   selectedUser : any | null = null
   dob: Date | undefined;
+  minDate = new Date(2004, 4, 1);
 
   users: any[] = []
 
@@ -76,6 +77,10 @@ export class AdminUserComponent {
   
   
   showDialog(user: any) {
+      if (this.loggedUser.username === user.username) {
+        this.messageService.add({ severity: 'error', summary: 'You cannot edit your own profile', detail: "It's Your Profile" });
+        return
+      }
     this.isEditMode = true;
     this.adduser = true;
   
@@ -103,6 +108,8 @@ export class AdminUserComponent {
     this.locale = user.locale;
     this.admin = user.admin;
     this.imageUrl = user.imageUrl;
+    this.password = user.password;
+    this.conformpass = user.conformpass
   
     if (user.dob) {
       const [day, month, year] = user.dob.split('/').map(Number);
@@ -122,6 +129,10 @@ export class AdminUserComponent {
   
   DeleteShow: boolean = false
   showDelete(user: any) {
+      if (this.loggedUser.username === user.username) {
+        this.messageService.add({ severity: 'error', summary: 'Your not able delete', detail: "It's Your Profile" });
+        return
+      }
     this.selectedUser = user;
     this.DeleteShow = true;
   }
@@ -156,10 +167,6 @@ export class AdminUserComponent {
 
     confirmDelete() {
       let user = this.selectedUser
-      if (this.loggedUser.username === user.username) {
-        this.messageService.add({ severity: 'error', summary: 'Your not able delete', detail: "It's Your Profile" });
-        return
-      }
       this.http.get<any[]>(`http://localhost:3000/orders?username=${user.username}`).subscribe({
         next: (orders) => {
           console.log(orders)

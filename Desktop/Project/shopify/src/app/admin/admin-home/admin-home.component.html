@@ -9,6 +9,7 @@
         <table class="table-container">
             <thead>
                 <tr>
+                    <th>OrderId</th>
                     <th>Username</th>
                     <th>Product Count</th>
                     <th>Ordered Date</th>
@@ -18,6 +19,7 @@
            </thead>
            <tbody>
                 <tr *ngFor="let item of paginatedOrders" (mouseenter)="selectedItem = item.id" (mouseleave)="selectedItem = null">
+                    <td>{{item.id.toUpperCase()}}</td>
                     <td>{{item.username}}</td>
                     <td>{{item.orderedItems.length}}</td>
                     <td>{{item.date}}</td>
@@ -49,7 +51,7 @@
                       <div>
                           <p style="color: #141569;">Delivered on {{viewItems.deliveredDate}}</p>
                           <p ><strong>{{ product.title }}</strong></p>
-                          <p style="margin: 2px;"><strong>OrderId:</strong> {{viewItems.id}}</p>
+                          <p style="margin: 2px;"><strong>OrderId:</strong> {{viewItems.id.toUpperCase()}}</p>
                           <p style="margin: 2px;"><strong>Delivery Address:</strong>  {{username.username}}</p>
                           <p style="margin: 2px;"><strong>Delivery street:</strong>  {{username.address}}</p>
                           <p style="margin: 2px;"><strong>State:</strong>  {{username.state.name}}</p>

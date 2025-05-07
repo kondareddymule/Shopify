@@ -44,7 +44,7 @@
                       <div>
                           <p style="color: #141569;">Delivered on {{selectedOrder.deliveredDate}}</p>
                           <p><strong>{{ product.title }}</strong></p>
-                          <p style="margin: 2px;"><strong>OrderId:</strong> {{selectedOrder.id}}</p>
+                          <p style="margin: 2px;"><strong>OrderId:</strong> {{selectedOrder.id.toUpperCase()}}</p>
                           <p style="margin: 2px;"><strong>Delivery Address:</strong>  {{username.username}}</p>
                           <p style="margin: 2px;"><strong>Delivery street:</strong>  {{username.address}}</p>
                           <p style="margin: 2px;"><strong>State:</strong>  {{username.state.name}}</p>

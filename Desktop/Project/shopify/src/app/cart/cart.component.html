@@ -22,7 +22,7 @@
                         <p-image [src]="item.image" alt="Image" width="120" height="80"/>
                     </div>
                     <div class="text-container">
-                        <p class="text-ellipsis">{{item.title}}</p>
+                        <p class="text-ellipsis" tooltipPosition="top" pTooltip="{{item.title}}">{{item.title}}</p>
                         <p style="font-weight: bold;">Price: {{item.price}}</p>
                         <div class="quantity-container">
                             <span class="icon" (click)="decreaseQuantity(item.id)">-</span>

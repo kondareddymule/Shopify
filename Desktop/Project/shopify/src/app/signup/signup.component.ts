@@ -19,6 +19,7 @@ export class SignupComponent {
   datacollection: FormdatacollectionService = inject(FormdatacollectionService)
   stateService : StatesService = inject(StatesService)
   dob: Date | null = null;
+  minDate = new Date(2004, 4, 1);
 
   validForm: boolean = true
 
@@ -51,14 +52,6 @@ export class SignupComponent {
    }
 
    canGoToNext() {
-    if (!this.data.valid || !this.selectedCountryCode ||this.currentPage === 2) {
-      this.messageService.add({
-      severity: 'error',
-      summary: 'Missing Information',
-      detail: 'Please select a country code before proceeding.'
-    });
-      return;
-  }
     this.nextpage();
   }
 
@@ -153,11 +146,11 @@ export class SignupComponent {
 
 
 submitData() {
-  if (this.data.invalid || !this.selectedCountryCode || !this.country || !this.state) {
+  if (this.data.invalid || !this.selectedCountryCode || !this.email || !this.username || !this.firstname || !this.phone) {
     this.messageService.add({
       severity: 'error',
       summary: 'Form Invalid',
-      detail: 'Please fill all required fields including country, state, and zip code.'
+      detail: 'Please fill all required fields '
     });
     return;
   }

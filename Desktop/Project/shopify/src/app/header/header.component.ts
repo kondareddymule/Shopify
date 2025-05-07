@@ -26,10 +26,11 @@ export class HeaderComponent {
   apiKey = '3893beb75fa04eb6abe131727250105';
   url = `https://api.weatherapi.com/v1/current.json?key=${this.apiKey}&q=${this.city}`;
 
-  private logoutTimer: any;
-  private timeoutDuration = 10 * 60 * 1000; 
+  // private logoutTimer: any;
+  // private timeoutDuration =  10000; 
 
   ngOnInit() {
+    this.ActiveRoute = this.currenturl.snapshot.url[0].path
     this.http.get(this.url).subscribe((item: any) => {
       this.temperature = Math.ceil(item.current.temp_c);
       this.tempUrl = item.current.condition.icon;
@@ -40,9 +41,6 @@ export class HeaderComponent {
       this.checked = true;
       document.body.classList.add('dark-theme');
     }
-    this.ActiveRoute = this.currenturl.snapshot.url[0].path
-    this.resetTimer();
-    console.log(this.currenturl)
   }
 
   toggleTheme() {
@@ -60,16 +58,17 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  resetTimer() {
-    if (this.logoutTimer) clearTimeout(this.logoutTimer);
-    this.logoutTimer = setTimeout(() => this.logout(), this.timeoutDuration);
-  }
+  // resetTimer() {
+  //   if (this.logoutTimer) clearTimeout(this.logoutTimer);
+  //   this.logoutTimer = setTimeout(() => this.logout(), this.timeoutDuration);
+  // }
 
-  @HostListener('document:mousemove')
-  @HostListener('document:keydown')
-  @HostListener('document:click')
-  @HostListener('document:scroll')
-  handleUserActivity() {
-    this.resetTimer();
-  }
+  // @HostListener('document:mousemove')
+  // @HostListener('document:keydown')
+  // @HostListener('document:click')
+  // @HostListener('document:scroll')
+  // handleUserActivity() {
+  //   this.resetTimer();
+  // }
+
 }

@@ -48,6 +48,7 @@ input {
     cursor: pointer;
     background-color: #f3f3f3;
     border: none;
+    cursor: pointer;
 }
 
 ::ng-deep .login-btn .p-button {

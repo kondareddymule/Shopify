@@ -14,7 +14,7 @@ export class AdminHomeComponent {
       selectedItem: number| null = null
       date = formatDate(new Date(), 'dd/MM/yyyy hh:mm a', 'en-US')
 
-      username = JSON.parse(localStorage.getItem('User'))
+      username = JSON.parse(localStorage.getItem("User") || '{}');
 
       ngOnInit() {
         this.http.get<any[]>('http://localhost:3000/orders').subscribe((items) => {
