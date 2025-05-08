@@ -56,9 +56,7 @@ export class CartComponent {
       this.router.navigate(['/user/orders'])
       for (let item of this.items) {
           const updatedItem = { ...item, quantity: 0 };
-          this.http.put(`http://localhost:3000/products/${item.id}`, updatedItem).subscribe(() => {
-            console.log('Quantity updated successfully')
-          })
+          this.http.put(`http://localhost:3000/products/${item.id}`, updatedItem).subscribe()
       }
     }
 

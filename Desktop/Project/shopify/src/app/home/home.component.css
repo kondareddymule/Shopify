@@ -35,4 +35,64 @@
   font-weight: bold;
   height: 40vw;
 }
-  
+
+.details {
+  display: flex;
+}
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 320px) {
+  .details {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 9vh;
+    left: 30vw;
+    width: 70vw;
+    height: 90vh;
+    overflow: scroll;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .mobile-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .chart-scroll {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  ::ng-deep canvas {
+    min-width: 500px !important; 
+    height: 250px !important;
+  }
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .noOrders {
+    color: #999999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .charts {
+    margin-bottom: 20px;
+  }
+}
+

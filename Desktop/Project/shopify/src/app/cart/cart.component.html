@@ -9,7 +9,7 @@
         <div>
             <input type="search"
                 [(ngModel)]="searchText"
-                style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 32px;" />
+                class="search" />
             <i class="pi pi-search" style="font-size: 1rem; cursor: pointer; position: absolute; top: 18px; right: 20px;"></i>
         </div>
         </div>
@@ -30,7 +30,7 @@
                             <span class="icon" (click)="increaseQuantity(item.id)">+</span>
                         </div>
                     </div>
-                    <div *ngIf="hoveredItem === item" style="display: flex; align-items: flex-end; margin-bottom: 20px;">
+                    <div *ngIf="hoveredItem === item" class="deleteIcon">
                         <i class="pi pi-trash" style="font-size: 1rem; cursor: pointer; color: #141569;"
                            (click)="openDeleteDialog(item)"></i>
                     </div>

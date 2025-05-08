@@ -75,7 +75,8 @@ const routes: Routes = [
     ]
   },
   
-
+  {path: "header", component: HeaderComponent},
+  {path: "dashboard", component: DashboardComponent},
   { path: '**', redirectTo: 'login' }
 ];
 

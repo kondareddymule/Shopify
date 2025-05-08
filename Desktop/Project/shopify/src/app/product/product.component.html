@@ -8,7 +8,7 @@
         <div>
         <input type="search"
             [(ngModel)]="searchText"
-            style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 32px;" />
+            class="search" />
             <i class="pi pi-search" style="font-size: 1rem; cursor: pointer; position: absolute; top: 18px; right: 20px;"></i>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="image-container">
         <div
         [style.background-image]="'url(' + item.image + ')'"
-        style="height: 200px; width: 400px; background-size: contain; border: 2px solid #E3E3E3; border-radius: 4px; background-position: center; background-repeat: no-repeat;"
+        class="backgroundImage"
       >
       </div>
       <div class="text-container">
@@ -44,7 +44,7 @@
             <div>
             <input type="search"
                 [(ngModel)]="searchText"
-                style="border-radius: 6px; width: 400px; background-color: #f3f3f3; border: none; height: 32px;" />
+                class="search" />
                 <i class="pi pi-search" style="font-size: 1rem; cursor: pointer; position: absolute; top: 18px; right: 20px;"></i>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="image-container">
             <div
             [style.background-image]="'url(' + item.image + ')'"
-            style="height: 200px; width: 400px; background-size: contain; border: 2px solid #E3E3E3; border-radius: 4px; background-position: center; background-repeat: no-repeat;"
+            class="backgroundImage"
           >
         </div>
           <div class="text-container">
@@ -65,10 +65,12 @@
         </div>
         <div>
         <div class="image-container">
-            <div style="height: 200px; width: 400px; background-size: cover; border: 2px solid #E3E3E3; border-radius: 4px;"></div>
+            <div class="backgroundImage"></div>
             <div class="add-container">
                 <i class="pi pi-plus" style="font-size: 1.5rem; cursor: pointer; background-color: #141569; color: white; border-radius: 4px;" (click)="showDialog()"></i>
-                <p style="color: #141569;">Add Product</p>
+                <div>
+                    <p style="color: #141569;">Add Product</p>
+                </div>
             </div>
         </div>
         
@@ -82,7 +84,7 @@
           [closeOnEscape]="false">
 
             <form (ngSubmit)="onSave()" #formRef="ngForm">
-                <label style="margin-bottom: 10px;">Add Image</label>
+                <label style="margin-bottom: 10px; font-weight: bold;">Add Image *</label>
                 <div class="filetype"
                     (drop)="onFileDrop($event)"
                     (dragover)="onDragOver($event)"
@@ -105,15 +107,15 @@
                 </div>
                 <p *ngIf="showErrors && !imagePreview" style="color: red; font-size: 10px;">* Image is required</p>
 
-                <label style="margin-bottom: 10px;">Product Name</label><br>
+                <label style="margin-bottom: 10px; font-weight: bold;">Product Name *</label><br>
                 <input type="text" pInputText [(ngModel)]="product.title" name="title" required/><br>
                 <p *ngIf="showErrors && !product.title" style="color: red; font-size: 10px;">* Product name is required</p>
 
-                <label style="margin-bottom: 10px;">Category</label><br>
+                <label style="margin-bottom: 10px; font-weight: bold;">Category *</label><br>
                 <input type="text" pInputText [(ngModel)]="product.category" name="category" required/><br>
                 <p *ngIf="showErrors && !product.category" style="color: red; font-size: 10px;">* Category is required</p>
 
-                <label style="margin-bottom: 10px;">Price</label><br>
+                <label style="margin-bottom: 10px; font-weight: bold;">Price *</label><br>
                 <input type="number" pInputText [(ngModel)]="product.price" name="price" required/><br>
                 <p *ngIf="showErrors && (!product.price || product.price <= 0)" style="color: red; font-size: 10px;">* Valid price is required</p>
 

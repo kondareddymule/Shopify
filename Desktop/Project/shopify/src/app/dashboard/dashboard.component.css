@@ -48,3 +48,21 @@ i, span {
 ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
     color: #141569 !important; 
 }
+
+
+@media screen and (max-width: 320px) {
+    .card {
+        width: 30vw;
+    }
+    i, span {
+        margin: 10px;
+    }
+    ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+        background: #C1BADD;
+        width: 100vw;
+        color: black;
+        padding: 10px;
+        font-size: 12px;
+        border: none;
+    }
+}

@@ -8,16 +8,27 @@
     color: var(--text-color)
 }
 
+.menu {
+    display: none;
+}
 
 .frame {
+    width: 40px;
+    height: 40px;
     position: absolute;
 }
 .shopify {
     position: absolute;
     left: 16px;
     top: 18px;
+    height: 20px;
 }
 
+.line {
+    margin-left: 100px; 
+    display: flex; 
+    align-items: center
+}
 .horizontalline {
     height: 7vh;
     width: 1px;
@@ -28,6 +39,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .right-container {
     display: flex;
     justify-content: center;
@@ -56,3 +68,48 @@ button {
     cursor: pointer;
     width: 90px;
 }
+
+
+/* @media screen and (max-width: 320px){
+    .right-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        display: none;
+    }
+    .container {
+        height: 7vh;
+    }
+    .menu {
+        display: block;
+        margin: 15px;
+    }
+    .frame {
+        width: 30px;
+        height: 30px;
+        top: 5px;
+        left: 7px;
+    }
+    .shopify {
+        left: 20px;
+        top: 20px;
+        height: 14px;
+    }
+    .horizontalline {
+        height: 7vh;
+        width: 1px;
+        border: 1px solid grey;
+    }
+    .line {
+        margin-left: 70px; 
+        display: flex; 
+        align-items: center
+    }
+    .hide {
+        display: none;
+    }
+    .right-container.show {
+        display: flex;
+    }
+} */

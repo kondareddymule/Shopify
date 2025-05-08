@@ -15,12 +15,12 @@
     <h1 class="heading1">LOGIN To Shopify...</h1>
     <form class="form-container">
         <div>
-            <label>Email:</label><br>
+            <label>Email: *</label><br>
             <input type="email" pInputText [(ngModel)]="email" name="email" required #emailRef="ngModel"/><br>
             <p *ngIf="emailRef.invalid && emailRef.touched" style="color: red; font-size: 10px;">* Email is required.</p>
         </div>
         <div>
-            <label>Password:</label><br>
+            <label>Password: *</label><br>
             <input type="password" pInputText [(ngModel)]="password" name="password" required #passwordRef="ngModel" autocomplete="on"/><br>
             <p *ngIf="passwordRef.invalid && passwordRef.touched" style="color: red; font-size: 10px;">* Password is required.</p>
         </div>

@@ -244,3 +244,73 @@ button.save:disabled {
     cursor: pointer;
     background-color: red;
 }
+
+
+@media screen and (max-width: 320px){
+    .container {
+        left: 30vw;
+        width: 70vw;
+    }
+    .table-container {
+        display: block;
+        overflow: scroll;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .profile-container,
+    .address-container {
+        width: 100%;
+        margin: 0;
+        position: static;
+    }
+
+    input, textarea {
+        font-size: 14px;
+    }
+
+    .cancel, .save {
+        width: 48%;
+        font-size: 14px;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 10px;
+        width: 90%;
+    }
+
+    .gender-container {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .gender-container label {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    span {
+        font-size: 14px;
+    }
+
+    textarea {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    ::ng-deep .p-dropdown,
+    ::ng-deep .p-calendar {
+        width: 100% !important;
+    }
+}

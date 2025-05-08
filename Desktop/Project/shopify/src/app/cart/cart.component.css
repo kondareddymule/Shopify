@@ -103,6 +103,15 @@ span {
     box-shadow: none !important;
 }
 
+.search {
+    position: relative;
+    border-radius: 6px; 
+    width: 400px; 
+    background-color: #f3f3f3; 
+    border: none; 
+    height: 32px;
+}
+
 
 .cancel {
     width: 100%;
@@ -126,4 +135,59 @@ span {
 
 ::ng-deep .p-dialog-mask {
     background-color: #0000000d !important;
+}
+
+.productImage {
+    height: 80px;
+    width: 120px;
+}
+
+.deleteIcon {
+    display: flex; 
+    align-items: flex-end; 
+    margin-bottom: 20px
+}
+
+
+@media screen and (max-width: 320px) {
+    .container {
+        left: 30vw;
+        width: 70vw;
+    }
+    .search {
+        width: 100px;
+    }
+    .product-container {
+        overflow: scroll;
+        margin-bottom: 70px;
+    }
+    .image-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .card {
+        height: 200px;
+        width: 200px;
+    }
+    .text-container {
+        margin-left: 10px;
+    }
+    .text-ellipsis {
+        width: 150px;
+    }
+
+    .deleteIcon {
+        display: flex; 
+        align-items: flex-end; 
+        margin-left: 160px;
+        margin-top: -30px;
+    }
+
+    .orderButton {
+        position: fixed;
+        bottom: 20px;
+        right: 15px;
+        z-index: 1000;
+    }
+    
 }

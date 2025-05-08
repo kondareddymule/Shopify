@@ -1,4 +1,4 @@
-import { Component, inject, HostListener} from '@angular/core';
+import { Component, inject, Renderer2, ElementRef} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class HeaderComponent {
   http: HttpClient = inject(HttpClient);
   router: Router = inject(Router);
-  
+  render: Renderer2 = inject(Renderer2)
+  element: ElementRef = inject(ElementRef)
   currenturl: ActivatedRoute = inject(ActivatedRoute)
 
   ActiveRoute: string;
@@ -22,6 +23,7 @@ export class HeaderComponent {
   city = this.user?.state?.name;
   temperature!: number;
   tempUrl!: string;
+  menuVisible: boolean = false
 
   apiKey = '3893beb75fa04eb6abe131727250105';
   url = `https://api.weatherapi.com/v1/current.json?key=${this.apiKey}&q=${this.city}`;
@@ -58,6 +60,10 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
+  ngAfterViewInit() {
+    
+  }
+
   // resetTimer() {
   //   if (this.logoutTimer) clearTimeout(this.logoutTimer);
   //   this.logoutTimer = setTimeout(() => this.logout(), this.timeoutDuration);
@@ -70,5 +76,15 @@ export class HeaderComponent {
   // handleUserActivity() {
   //   this.resetTimer();
   // }
+
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible;
+    const rightContainer = this.element.nativeElement.querySelector('.right-container');
+    if (this.menuVisible) {
+      rightContainer.classList.add('show');
+    } else {
+      rightContainer.classList.remove('show');
+    }
+  }
 
 }

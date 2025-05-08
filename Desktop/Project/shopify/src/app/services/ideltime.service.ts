@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class IdeltimeService {
 
   private timeoutId: any;
-  private readonly timeoutMs = 1 * 60 * 1000;
+  private timeoutMs = 10 * 60 * 1000;
 
   constructor(private router: Router, private ngZone: NgZone) {
     this.startWatching();
@@ -31,7 +31,6 @@ export class IdeltimeService {
       ['click', 'mousemove', 'keydown', 'scroll', 'touchstart']
         .forEach(event => window.addEventListener(event, () => this.resetTimer()));
     });
-
     this.resetTimer();
   }
 

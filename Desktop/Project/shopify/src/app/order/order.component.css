@@ -130,3 +130,90 @@ color: #141569;
 ::ng-deep .p-dialog-mask {
     background-color: #0000000d !important;
 }
+
+.viewClass {
+    margin-top: 15px; 
+    display: flex; 
+    gap: 10px;
+}
+
+.order-dialog-content {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.order-dialog-image img {
+    height: 240px;
+    width: 250px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.order-dialog-details p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 320px){
+    .container {
+        left: 30vw;
+        width: 70vw;
+    }
+    .table-container {
+        display: block;
+        overflow: scroll;
+    }
+    .table-container th, .table-container td {
+        white-space: nowrap;
+        padding: 8px;
+    }
+
+    .action-icons .icon-wrapper i {
+        font-size: 1rem;
+    }
+
+    .pagination {
+        flex-direction: column;
+        position: static;
+        margin-top: 20px;
+        gap: 10px;
+        text-align: center;
+    }
+
+    button {
+        width: 100px;
+        font-size: 12px;
+    }
+
+    .viewClass {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .viewClass img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+    }
+
+    ::ng-deep .p-dialog {
+        width: 90vw !important;
+    }
+
+    .cancel, .save {
+        font-size: 14px;
+        height: 36px;
+        padding: 0 10px;
+    }
+
+    .p-dialog .p-dialog-header {
+        font-size: 14px !important;
+    }
+
+    .noOrders {
+        font-size: 14px;
+        padding: 20px;
+        text-align: center;
+    }
+}

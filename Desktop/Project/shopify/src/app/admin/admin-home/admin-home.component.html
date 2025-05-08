@@ -3,6 +3,11 @@
 
 
 
+
+
+
+
+
 <div class="container">
     <div style="margin: 10px">
     <p style="color: #141569; font-weight: bold;">Welcome Admin!...</p>
@@ -44,23 +49,23 @@
                   [resizable]="false" [draggable]="false" [modal]="true"
                   [style]="{width: '600px'}">
                   <div *ngIf="viewItems">
-                    <div *ngFor="let product of viewItems.orderedItems" style="margin-top: 15px; display: flex; gap: 10px;">
-                      <div>
-                        <img [src]="product.image" height="60px" width="60px" style="border-radius: 4px; height: 240px; width: 250px;"/>
+                    <div *ngFor="let product of viewItems.orderedItems" class="viewClass">
+                      <div class="order-dialog-image">
+                        <img [src]="product.image" alt="product"/>
                       </div>
-                      <div>
+                      <div class="order-dialog-details">
                           <p style="color: #141569;">Delivered on {{viewItems.deliveredDate}}</p>
                           <p ><strong>{{ product.title }}</strong></p>
-                          <p style="margin: 2px;"><strong>OrderId:</strong> {{viewItems.id.toUpperCase()}}</p>
-                          <p style="margin: 2px;"><strong>Delivery Address:</strong>  {{username.username}}</p>
-                          <p style="margin: 2px;"><strong>Delivery street:</strong>  {{username.address}}</p>
-                          <p style="margin: 2px;"><strong>State:</strong>  {{username.state.name}}</p>
-                          <p style="margin: 2px;"><strong>Country:</strong>  {{username.country.name}}</p>
-                          <p style="margin: 2px;"><strong>PinCode:</strong>  {{username.Zipcode}}</p>
+                          <p ><strong>OrderId:</strong> {{viewItems.id.toUpperCase()}}</p>
+                          <p ><strong>Delivery Address:</strong>  {{username.username}}</p>
+                          <p ><strong>Delivery street:</strong>  {{username.address}}</p>
+                          <p ><strong>State:</strong>  {{username.state.name}}</p>
+                          <p ><strong>Country:</strong>  {{username.country.name}}</p>
+                          <p ><strong>PinCode:</strong>  {{username.Zipcode}}</p>
                       </div>
                     </div>
                   </div>
-                </p-dialog>
+          </p-dialog>
         <div class="pagination" *ngIf="items.length > pageSize">
             <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Prev</button>
           
